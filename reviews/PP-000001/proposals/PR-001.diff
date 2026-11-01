@@ -1,0 +1,513 @@
+diff --git a/iosApp/iosApp/Stories/StoriesView.swift b/iosApp/iosApp/Stories/StoriesView.swift
+index ad2a8b6..3615fd2 100644
+--- a/iosApp/iosApp/Stories/StoriesView.swift
++++ b/iosApp/iosApp/Stories/StoriesView.swift
+@@ -34,28 +34,24 @@ struct StoriesView: View {
+ 
+     @StateObject private var vm = StoriesViewModelIOS()
+     @StateObject private var locale = LocaleStore()
+-    @Environment(\.horizontalSizeClass) private var sizeClass
+-    /// Journal shelf index — Home · Stories · Recipes · Voices. Kept as Int so
+-    /// the picker's first tap sticks without remounting the control.
+-    @State private var shelfIndex: Int = 0
++    /// Journal tab — Stories · Recipes · Time capsules. Kept as Int so the
++    /// segmented control's first tap sticks without remounting the control.
++    @State private var tabIndex: Int = JournalTab.stories
+     @State private var showNewStory = false
+-    @State private var showNewRecipe = false
+     @State private var bookFlow: StorybookFlow?
+     @State private var showVoices = false
+-    @State private var createPageOpen = false
+-    @State private var createVoiceTick = 0
+     @State private var createRecipeTick = 0
+-    /// Measured width of the Journal recipe strip (for iPad column count).
+-    @State private var journalRecipeWidth: CGFloat = 390
++    @State private var createCapsuleTick = 0
+     @ObservedObject private var shellRequests = ShellRequests.shared
+ 
+-    private var journalShelf: JournalShelf {
+-        JournalShelf.entries[max(0, min(shelfIndex, JournalShelf.entries.count - 1))]
++    private enum JournalTab {
++        static let stories = 0
++        static let recipes = 1
++        static let capsules = 2
+     }
+-    private var showHome: Bool { journalShelf == JournalShelf.journal }
+-    private var showStories: Bool { journalShelf == JournalShelf.stories }
+-    private var showRecipes: Bool { journalShelf == JournalShelf.recipes }
+-    private var showVoicesShelf: Bool { journalShelf == JournalShelf.voices }
++    private var showStories: Bool { tabIndex == JournalTab.stories }
++    private var showRecipes: Bool { tabIndex == JournalTab.recipes }
++    private var showCapsules: Bool { tabIndex == JournalTab.capsules }
+     @State private var showCharacterPicker = false
+     @State private var showDeleteConfirm = false
+     /// How far the story detail has scrolled — snaps its top bar compact.
+@@ -118,26 +114,23 @@ struct StoriesView: View {
+                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                     .kinlilyTopBar(title: "", onBack: onClose)
+             } else {
+-                // ONE mode control: ⋯ with icon + page name. Title shows the
+-                // current shelf. ＋ opens the create grid page.
++                // Three tabs under the title — Stories · Recipes · Time capsules.
++                // The filter sits top-right on Stories; each tab's ＋ creates its kind.
+                 KinlilyScreenScaffold(
+                     title: (showStories ? bookFlow?.title : nil)
+-                        ?? locale.tr(journalShelf.titleKey),
++                        ?? locale.tr(JournalKeys.shared.JOURNAL_HOME),
+                     onBack: (showStories ? bookFlow?.back : nil) ?? onClose,
+-                    busy: (showRecipes || showVoicesShelf)
+-                        ? false
+-                        : (vm.state.isLoading || vm.state.isRefreshing || vm.state.isGenerating),
++                    busy: showStories
++                        ? (vm.state.isLoading || vm.state.isRefreshing || vm.state.isGenerating)
++                        : false,
+                     scrolls: !showRecipes,
+-                    leading: (bookFlow == nil && (showHome || showStories))
+-                        ? { AnyView(journalBrowseMenu) }
+-                        : nil,
+                     trailing: {
+-                        if bookFlow == nil { journalMoreMenu }
++                        if bookFlow == nil && showStories { journalBrowseMenu }
+                     },
+                     pinned: {
+                         AnyView(Group {
+-                            if bookFlow == nil && journalShelf.showsStoryFilters {
+-                                storyFilterPills
++                            if bookFlow == nil {
++                                journalTabs
+                                     .padding(.horizontal, 20).padding(.bottom, 10)
+                             }
+                         })
+@@ -149,11 +142,8 @@ struct StoriesView: View {
+                                 embedded: true,
+                                 createRecipeRequest: createRecipeTick
+                             )
+-                        } else if showVoicesShelf {
+-                            VoicesView(embedded: true, createVoiceRequest: createVoiceTick)
+-                        } else if showHome {
+-                            journalDashboard
+-                                .padding(.horizontal, 20).padding(.top, 4).padding(.bottom, 88)
++                        } else if showCapsules {
++                            TimeCapsuleView(embedded: true, composeRequest: createCapsuleTick)
+                         } else {
+                             // Storybooks strip on top, then a hairline, then AI stories.
+                             VStack(alignment: .leading, spacing: 0) {
+@@ -163,36 +153,26 @@ struct StoriesView: View {
+                                     onFlow: { bookFlow = $0 })
+                                 Divider().background(Color.kBorder)
+                                     .padding(.vertical, 16)
+-                                listWithoutInlineFilters
++                                list
+                             }
+                             .padding(.horizontal, 20).padding(.top, 4).padding(.bottom, 88)
+                         }
+                     }
+                 )
+                 .refreshable {
+-                    if !showRecipes && !showVoicesShelf { await vm.refresh() }
++                    if showStories { await vm.refresh() }
+                 }
+                 .overlay(alignment: .bottomTrailing) {
+-                    if bookFlow == nil && !createPageOpen {
++                    if bookFlow == nil && !(showStories && vm.state.aiPaused) {
+                         journalDock
+                     }
+                 }
+-                .navigationDestination(isPresented: $createPageOpen) {
+-                    journalCreatePage
+-                }
+-                .navigationDestination(isPresented: $showNewRecipe) {
+-                    RecipeView(
+-                        recipeId: nil,
+-                        onClose: { showNewRecipe = false },
+-                        isPushed: true
+-                    )
+-                }
+             }
+         }
+         .keyboardDoneToolbar()
+         .onAppear {
+             if openRecipesShelf {
+-                shelfIndex = Int(JournalShelf.recipes.ordinal)
++                tabIndex = JournalTab.recipes
+                 onOpenRecipesShelfConsumed?()
+             }
+             if let id = initialStoryId { vm.openStory(id) }
+@@ -200,12 +180,12 @@ struct StoriesView: View {
+         }
+         .onChange(of: openRecipesShelf) { _, open in
+             if open {
+-                shelfIndex = Int(JournalShelf.recipes.ordinal)
++                tabIndex = JournalTab.recipes
+                 onOpenRecipesShelfConsumed?()
+             }
+         }
+         .onChange(of: shellRequests.kitchenFamilyShelf) { _, _ in
+-            shelfIndex = Int(JournalShelf.recipes.ordinal)
++            tabIndex = JournalTab.recipes
+         }
+         .onChange(of: reloadToken) { _, _ in vm.reload() }
+         .onChange(of: intents.pending) { _, _ in consumeIntent() }
+@@ -275,15 +255,27 @@ struct StoriesView: View {
+ 
+     // MARK: - List + create
+ 
+-    /// Same create entry on every Journal shelf — opens the create grid page.
++    /// Each tab's ＋ creates that tab's kind: a story, a recipe, a time capsule.
+     private var journalDock: some View {
+         KinlilyFab(
+-            label: locale.tr(JournalKeys.shared.JOURNAL_ADD_TITLE),
++            label: locale.tr(
++                showRecipes ? JournalKeys.shared.JOURNAL_ADD_RECIPE
++                    : showCapsules ? CapsuleKeys.shared.CAPSULE_NEW
++                    : JournalKeys.shared.JOURNAL_ADD_STORY
++            ),
+             edgePadding: true
+-        ) { createPageOpen = true }
++        ) {
++            if showRecipes {
++                createRecipeTick += 1
++            } else if showCapsules {
++                createCapsuleTick += 1
++            } else {
++                showNewStory = true
++            }
++        }
+     }
+ 
+-    /// Left-bar funnel — sort by date + show Everything / Favorites / Yours / Shared.
++    /// Top-right funnel — sort by date + show Everything / Favorites / Yours / Shared.
+     private var journalBrowseMenu: some View {
+         Menu {
+             Section(locale.tr(JournalKeys.shared.JOURNAL_SORT_SECTION)) {
+@@ -310,238 +302,16 @@ struct StoriesView: View {
+         .accessibilityLabel(locale.tr(JournalKeys.shared.JOURNAL_SORT_FILTER))
+     }
+ 
+-    /// Journal landing — stories first (top 3 + Show more), then recipes.
+-    /// Recipes: phone = one column; iPad = the grid; also capped at 3.
+-    private var journalDashboard: some View {
+-        let recipes = vm.browsedRecipes
+-        let previewLimit = Int(JournalBrowseKt.JOURNAL_HOME_PREVIEW)
+-        let recipePreview = Array(recipes.prefix(previewLimit))
+-        let stories = vm.browsedStories
+-        let storiesEmpty = stories.isEmpty && !vm.state.isGenerating
+-        let moreStories = stories.count > previewLimit
+-        // Compact (= phone) always one tile wide; regular uses the shared grid.
+-        let cols: [GridItem] = sizeClass == .compact
+-            ? [GridItem(.flexible(), spacing: KinlilyRecipeGrid.spacing)]
+-            : KinlilyRecipeGrid.columns(forWidth: journalRecipeWidth + KinlilyRecipeGrid.padding * 2)
+-        return VStack(alignment: .leading, spacing: 0) {
+-            if recipes.isEmpty && storiesEmpty && !vm.state.isLoading {
+-                Text(locale.tr(JournalKeys.shared.JOURNAL_DASHBOARD_EMPTY))
+-                    .font(.kBodyM).foregroundColor(.ink3)
+-                    .padding(.vertical, 24)
+-            }
+-
+-            Text(locale.tr(Keys.shared.STORYBOOK_FAMILY_TAB))
+-                .font(.kTitleS).fontWeight(.semibold).foregroundColor(.ink)
+-                .padding(.bottom, 12)
+-
+-            list(showInlineFilters: false, previewLimit: previewLimit)
+-
+-            if moreStories {
+-                seeAllLink(JournalKeys.shared.JOURNAL_SEE_ALL_STORIES) {
+-                    shelfIndex = Int(JournalShelf.stories.ordinal)
+-                }
+-                .padding(.top, 4)
+-            }
+-
+-            Divider().background(Color.kBorder)
+-                .padding(.top, 24).padding(.bottom, 20)
+-
+-            Text(locale.tr(Keys.shared.STORYBOOK_RECIPES_TAB))
+-                .font(.kTitleS).fontWeight(.semibold).foregroundColor(.ink)
+-                .padding(.bottom, 12)
+-
+-            if !recipePreview.isEmpty {
+-                LazyVGrid(columns: cols, spacing: KinlilyRecipeGrid.spacing) {
+-                    ForEach(Array(recipePreview.enumerated()), id: \.element.id) { index, recipe in
+-                        journalRecipeTile(recipe, index: index)
+-                    }
+-                }
+-                .background(
+-                    GeometryReader { geo in
+-                        Color.clear.preference(key: JournalRecipeWidthKey.self, value: geo.size.width)
+-                    }
+-                )
+-                .onPreferenceChange(JournalRecipeWidthKey.self) { journalRecipeWidth = $0 }
+-                if recipes.count > recipePreview.count {
+-                    seeAllLink(JournalKeys.shared.JOURNAL_SEE_ALL_RECIPES) {
+-                        shelfIndex = Int(JournalShelf.recipes.ordinal)
+-                    }
+-                    .padding(.top, 4)
+-                }
+-            }
+-        }
+-    }
+-
+-    private func journalRecipeTile(_ recipe: Recipe, index: Int) -> some View {
+-        let badges: [RecipeBadge] = {
+-            let raw = RecipeLookKt.recipeBadges(recipe: recipe, myUid: vm.state.myUid, inventorIsSelf: false)
+-            return (raw as? [RecipeBadge]) ?? []
+-        }()
+-        return KinlilyRecipeCard(
+-            title: recipe.title,
+-            imageUrl: RecipeCover.shared.url(
+-                recipe: recipe,
+-                preferredIndex: 0,
+-                hiddenIndexes: Set<KotlinInt>()
+-            ),
+-            badges: badges,
+-            size: nil,
+-            noImageText: locale.tr(KitchenKeys.shared.KITCHEN_NO_IMAGE),
+-            badgeLabel: journalBadgeLabel,
+-            onOpen: {
+-                ShellRequests.shared.openRecipeId = IdentifiedString(id: recipe.id)
+-            }
++    /// Stories · Recipes · Time capsules — native segmented control under the title.
++    private var journalTabs: some View {
++        KinlilyGlassSegments(
++            labels: [
++                locale.tr(Keys.shared.STORYBOOK_FAMILY_TAB),
++                locale.tr(Keys.shared.STORYBOOK_RECIPES_TAB),
++                locale.tr(CapsuleKeys.shared.CAPSULE_TITLE),
++            ],
++            selected: $tabIndex
+         )
+-        .capsuleRise(index + 1)
+-    }
+-
+-    private func journalBadgeLabel(_ badge: RecipeBadge) -> String {
+-        switch badge {
+-        case .yours: return locale.tr(KitchenKeys.shared.KITCHEN_BADGE_YOURS)
+-        case .family: return locale.tr(KitchenKeys.shared.KITCHEN_BADGE_FAMILY)
+-        case .shared: return locale.tr(KitchenKeys.shared.KITCHEN_BADGE_SHARED)
+-        case .inventor: return locale.tr(KitchenKeys.shared.KITCHEN_BADGE_INVENTOR)
+-        case .ai: return locale.tr(KitchenKeys.shared.KITCHEN_BADGE_AI)
+-        default: return ""
+-        }
+-    }
+-
+-    private func seeAllLink(_ key: String, action: @escaping () -> Void) -> some View {
+-        Button(action: action) {
+-            Text(locale.tr(key))
+-                .font(.kLabel).fontWeight(.semibold).foregroundColor(.sageDeep)
+-                .padding(.vertical, 8)
+-        }
+-        .buttonStyle(.plain)
+-    }
+-
+-    /// Full create page — Story · Recipe · Voice in a grid.
+-    private var journalCreatePage: some View {
+-        ScrollView {
+-            VStack(alignment: .leading, spacing: 12) {
+-                HStack(alignment: .top, spacing: 12) {
+-                    if !vm.state.aiPaused {
+-                        journalCreateTile(
+-                            glyph: "auto_stories",
+-                            title: JournalKeys.shared.JOURNAL_ADD_STORY,
+-                            sub: JournalKeys.shared.JOURNAL_ADD_STORY_SUB,
+-                            tint: .sageDeep, wash: .sageSoft
+-                        ) {
+-                            createPageOpen = false
+-                            showNewStory = true
+-                        }
+-                    }
+-                    journalCreateTile(
+-                        glyph: "restaurant",
+-                        title: JournalKeys.shared.JOURNAL_ADD_RECIPE,
+-                        sub: JournalKeys.shared.JOURNAL_ADD_RECIPE_SUB,
+-                        tint: .kClay, wash: Color.kClay.opacity(0.14)
+-                    ) {
+-                        createPageOpen = false
+-                        shelfIndex = Int(JournalShelf.recipes.ordinal)
+-                        createRecipeTick += 1
+-                        showNewRecipe = true
+-                    }
+-                }
+-                journalCreateTile(
+-                    glyph: "mic",
+-                    title: JournalKeys.shared.JOURNAL_ADD_VOICE,
+-                    sub: JournalKeys.shared.JOURNAL_ADD_VOICE_SUB,
+-                    tint: .kGoldDeep, wash: .kGoldSoft
+-                ) {
+-                    createPageOpen = false
+-                    shelfIndex = Int(JournalShelf.voices.ordinal)
+-                    createVoiceTick += 1
+-                }
+-            }
+-            .padding(.horizontal, 20)
+-            .padding(.top, 8)
+-            .padding(.bottom, 40)
+-        }
+-        .background(Color.clear)
+-        .navigationTitle(locale.tr(JournalKeys.shared.JOURNAL_ADD_TITLE))
+-        .navigationBarTitleDisplayMode(.large)
+-    }
+-
+-    private func journalCreateTile(
+-        glyph: String, title: String, sub: String,
+-        tint: Color, wash: Color,
+-        action: @escaping () -> Void
+-    ) -> some View {
+-        Button(action: action) {
+-            VStack(alignment: .leading, spacing: 10) {
+-                ZStack {
+-                    Circle().fill(wash).frame(width: 44, height: 44)
+-                    KinlilySymbol(name: glyph, size: 22, color: tint)
+-                }
+-                Text(locale.tr(title))
+-                    .font(.kTitleS).fontWeight(.semibold).foregroundColor(.ink)
+-                    .multilineTextAlignment(.leading)
+-                Text(locale.tr(sub))
+-                    .font(.kBodyS).foregroundColor(.ink3)
+-                    .multilineTextAlignment(.leading)
+-                    .lineLimit(3)
+-            }
+-            .frame(maxWidth: .infinity, alignment: .leading)
+-            .padding(16)
+-            .background(Color.kSurface)
+-            .overlay(
+-                RoundedRectangle(cornerRadius: 18, style: .continuous)
+-                    .stroke(Color.kBorder, lineWidth: 1)
+-            )
+-            .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+-        }
+-        .buttonStyle(.plain)
+-    }
+-
+-    /// Tree-style ⋯ — switch Journal shelf (icon + page name). Create is ＋ only.
+-    /// Journal reads "All" here (bar title stays Journal), with a divider under it.
+-    private var journalMoreMenu: some View {
+-        Menu {
+-            ForEach(0..<JournalShelf.entries.count, id: \.self) { i in
+-                let mode = JournalShelf.entries[i]
+-                Button {
+-                    shelfIndex = Int(mode.ordinal)
+-                } label: {
+-                    Label {
+-                        Text(locale.tr(mode.menuTitleKey) + (journalShelf == mode ? " ✓" : ""))
+-                    } icon: {
+-                        KinlilySymbol(name: mode.glyph, size: 18, color: .sageDeep)
+-                    }
+-                }
+-                if mode.menuDividerAfter {
+-                    Divider()
+-                }
+-            }
+-        } label: {
+-            KinlilyBarIconLabel(glyph: .system("ellipsis"))
+-        }
+-        .accessibilityLabel(locale.tr(ParentalKeys.shared.TREE_MORE))
+-    }
+-
+-    /// All · Favorites · You're in — native segmented control (same style as the
+-    /// old Journal shelf picker).
+-    private var storyFilterPills: some View {
+-        let tagged = locale.tr(StoryScreenKeys.shared.STORY_TAB_TAGGED)
+-            + (vm.state.sharedStories.isEmpty ? "" : " · \(vm.state.sharedStories.count)")
+-        let labels = [
+-            locale.tr(Keys.shared.STORIES_FILTER_ALL),
+-            locale.tr(Keys.shared.STORIES_FILTER_FAVORITES),
+-            tagged,
+-        ]
+-        let filters: [StoriesContract.StoryFilter] = [
+-            .all, .favorites, .tagged,
+-        ]
+-        let selected = Binding(
+-            get: { filters.firstIndex(of: vm.state.filter) ?? 0 },
+-            set: { vm.selectFilter(filters[$0]) }
+-        )
+-        return KinlilyGlassSegments(labels: labels, selected: selected)
+-    }
+-
+-    /// Story list without the inline hairline tabs (filters live in `pinned`).
+-    @ViewBuilder private var listWithoutInlineFilters: some View {
+-        list(showInlineFilters: false, previewLimit: nil)
+     }
+ 
+     /// The stories, as a plain list: no cards, a hairline between each. Making a
+@@ -1897,8 +1667,3 @@ private struct CastListSheet: View {
+         .background(Color.kSurface)
+     }
+ }
+-
+-private struct JournalRecipeWidthKey: PreferenceKey {
+-    static var defaultValue: CGFloat = 390
+-    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) { value = nextValue() }
+-}
+diff --git a/iosApp/iosApp/TimeCapsule/TimeCapsuleView.swift b/iosApp/iosApp/TimeCapsule/TimeCapsuleView.swift
+index 8d8baae..28dfab6 100644
+--- a/iosApp/iosApp/TimeCapsule/TimeCapsuleView.swift
++++ b/iosApp/iosApp/TimeCapsule/TimeCapsuleView.swift
+@@ -7,6 +7,10 @@ import SharedLogic
+ struct TimeCapsuleView: View {
+     var startRecipientId: String? = nil
+     var onClose: () -> Void = {}
++    /// Inside Journal ▸ Time capsules — Journal owns the title and the ＋; no second scaffold.
++    var embedded: Bool = false
++    /// Bumped by Journal's ＋ on this tab → open the new-capsule sheet.
++    var composeRequest: Int = 0
+ 
+     @StateObject private var vm = TimeCapsuleViewModelIOS()
+     @StateObject private var locale = LocaleStore()
+@@ -18,21 +22,32 @@ struct TimeCapsuleView: View {
+     @State private var shelf = false
+     @State private var viewingOpened = false
+ 
+-    var body: some View {
++    private var root: some View {
+         ZStack {
+-            GlassAtmosphere()
+-            KinlilyScreenScaffold(
+-                title: locale.tr(CapsuleKeys.shared.CAPSULE_TITLE),
+-                subtitle: locale.tr(CapsuleKeys.shared.CAPSULE_SUBTITLE),
+-                onBack: onClose,
+-                busy: vm.state.isLoading || vm.state.saving,
+-                trailing: {
+-                    Button { vm.send(TimeCapsuleContractEventOnOpenCompose(recipientId: nil)) } label: {
+-                        Text("+ " + locale.tr(CapsuleKeys.shared.CAPSULE_NEW)).font(.kLabel).foregroundColor(.sageDeep)
+-                            .padding(8)
++            if embedded {
++                capsuleBody.padding(.bottom, 48)
++            } else {
++                GlassAtmosphere()
++                KinlilyScreenScaffold(
++                    title: locale.tr(CapsuleKeys.shared.CAPSULE_TITLE),
++                    subtitle: locale.tr(CapsuleKeys.shared.CAPSULE_SUBTITLE),
++                    onBack: onClose,
++                    busy: vm.state.isLoading || vm.state.saving,
++                    trailing: {
++                        Button { vm.send(TimeCapsuleContractEventOnOpenCompose(recipientId: nil)) } label: {
++                            Text("+ " + locale.tr(CapsuleKeys.shared.CAPSULE_NEW)).font(.kLabel).foregroundColor(.sageDeep)
++                                .padding(8)
++                        }
+                     }
+-                }
+-            ) {
++                ) { capsuleBody }
++            }
++        }
++        .onChange(of: composeRequest) { _, tick in
++            if tick > 0 { vm.send(TimeCapsuleContractEventOnOpenCompose(recipientId: nil)) }
++        }
++    }
++
++    private var capsuleBody: some View {
+                 VStack(alignment: .leading, spacing: 0) {
+                     if let held = vm.state.holding.first { holdBanner(held) }
+                     if !vm.state.isLoading && (vm.state.sentCount > 0 || vm.state.receivedCount > 0) { tabSwitch }
+@@ -67,8 +82,10 @@ struct TimeCapsuleView: View {
+                 }
+                 .padding(.horizontal, 20).padding(.bottom, 40)
+                 .frame(maxWidth: .infinity, alignment: .leading)
+-            }
+-        }
++    }
++
++    var body: some View {
++        root
+         .overlay {
+             if vm.state.showIntro {
+                 CapsuleIntro(locale: locale, onFinish: { vm.send(TimeCapsuleContractEventOnIntroDone()) }, onMakeFirst: {

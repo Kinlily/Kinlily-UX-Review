@@ -1,0 +1,29 @@
+schema_version: 1
+id: PR-001
+review_id: PP-000001
+thread_id: TH-001
+status: pending
+created_at: '2026-11-01T04:05:51.214355Z'
+agent: claude-code
+on_behalf_of: local
+rationale: "Journal now has three tabs under the title: Stories, Recipes and Time\
+  \ capsules (the existing capsule screen).\nThe \uFF0B creates a story, a recipe\
+  \ or a capsule, depending on the tab.\nThe filter icon is now top right, on Stories\
+  \ only, and the \u22EF menu is gone."
+diff_file: reviews/PP-000001/proposals/PR-001.diff
+files:
+- iosApp/iosApp/Stories/StoriesView.swift
+- iosApp/iosApp/TimeCapsule/TimeCapsuleView.swift
+additions: 85
+deletions: 303
+decision: null
+applied: null
+verification: null
+run:
+  started_at: '2026-11-01T04:01:16.299140Z'
+  duration_seconds: 274.9
+  base_commit: ef2de6b7f5509b67cdcfe4b265b12ec4c8014e7b
+  asked_by: local
+  isolation: none
+replaces: null
+mockup_id: null
