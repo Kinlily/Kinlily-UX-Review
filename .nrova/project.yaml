@@ -1,0 +1,8 @@
+schema_version: 1
+project:
+  id: prj_u2i2uyz5tv7qofr4qzdpptegve
+  name: Kinlily-UX-Review
+  created_at: '2026-11-01T03:50:19.065599+00:00'
+repositories: []
+review:
+  storage: git
