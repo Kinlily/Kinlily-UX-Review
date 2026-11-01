@@ -47,5 +47,10 @@ comments:
   created_at: '2026-11-01T03:56:25.090324Z'
   body: "Move filter icon to the place of \u2026 and remove \u2026 icon."
   mentions: []
-last_comment: 2
+- id: C-003
+  author: Manjunath Kodanda Reddy
+  created_at: '2026-11-01T03:57:09.460040Z'
+  body: in voice capsules tab, show existing voice capsules screen.
+  mentions: []
+last_comment: 3
 design_regions: []
