@@ -6,3 +6,6 @@ project:
 repositories: []
 review:
   storage: git
+  provider: github
+  host: github.com
+  remote: kinlily/kinlily-ux-review
