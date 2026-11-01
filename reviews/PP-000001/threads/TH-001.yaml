@@ -1,0 +1,46 @@
+schema_version: 1
+id: TH-001
+review_id: PP-000001
+status: open
+created_at: '2026-11-01T03:54:42.418487Z'
+anchor:
+  state_index: 1
+  viewport_width: 402
+  viewport_height: 874
+  nodes:
+  - id: 0.0.1.0.0
+    type: other
+    name: null
+    text: null
+    bounds:
+      x: 0.0
+      y: 0.0
+      width: 402.0
+      height: 874.0
+    path:
+    - type: application
+      name: Kinlily
+    - type: window
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+  region: null
+  url: ios://home
+  screen:
+    kind: ios
+    app: com.kinlily.app
+    screen: null
+    title: null
+comments:
+- id: C-001
+  author: Manjunath Kodanda Reddy
+  created_at: '2026-11-01T03:54:42.418487Z'
+  body: In Journal screen, Add Stories, Recipes and Voice Capsule as three tabs and
+    each tab with + fab which takes to create story, create recipe, create voice capsule.
+  mentions: []
+last_comment: 1
+design_regions: []

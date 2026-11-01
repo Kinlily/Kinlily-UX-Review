@@ -1,0 +1,2000 @@
+{
+  "schema_version": 1,
+  "root": {
+    "id": "0",
+    "type": "application",
+    "name": "Kinlily",
+    "text": "Kinlily",
+    "bounds": {
+      "x": 0.0,
+      "y": 0.0,
+      "width": 402.0,
+      "height": 874.0
+    },
+    "children": [
+      {
+        "id": "0.0",
+        "type": "window",
+        "name": null,
+        "text": null,
+        "bounds": {
+          "x": 0.0,
+          "y": 0.0,
+          "width": 402.0,
+          "height": 874.0
+        },
+        "children": [
+          {
+            "id": "0.0.0",
+            "type": "other",
+            "name": null,
+            "text": null,
+            "bounds": {
+              "x": 0.0,
+              "y": 0.0,
+              "width": 402.0,
+              "height": 874.0
+            },
+            "children": [],
+            "attributes": {
+              "native_type": "Other",
+              "enabled": "true",
+              "visible": "false"
+            },
+            "accessibility": {
+              "accessible": true
+            },
+            "runtime": {},
+            "source_mapping": null
+          },
+          {
+            "id": "0.0.1",
+            "type": "other",
+            "name": null,
+            "text": null,
+            "bounds": {
+              "x": 0.0,
+              "y": 0.0,
+              "width": 402.0,
+              "height": 874.0
+            },
+            "children": [
+              {
+                "id": "0.0.1.0",
+                "type": "other",
+                "name": null,
+                "text": null,
+                "bounds": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "width": 402.0,
+                  "height": 874.0
+                },
+                "children": [
+                  {
+                    "id": "0.0.1.0.0",
+                    "type": "other",
+                    "name": null,
+                    "text": null,
+                    "bounds": {
+                      "x": 0.0,
+                      "y": 0.0,
+                      "width": 402.0,
+                      "height": 874.0
+                    },
+                    "children": [
+                      {
+                        "id": "0.0.1.0.0.0",
+                        "type": "other",
+                        "name": null,
+                        "text": null,
+                        "bounds": {
+                          "x": 0.0,
+                          "y": 0.0,
+                          "width": 402.0,
+                          "height": 874.0
+                        },
+                        "children": [
+                          {
+                            "id": "0.0.1.0.0.0.0",
+                            "type": "other",
+                            "name": null,
+                            "text": null,
+                            "bounds": {
+                              "x": 0.0,
+                              "y": 0.0,
+                              "width": 402.0,
+                              "height": 874.0
+                            },
+                            "children": [
+                              {
+                                "id": "0.0.1.0.0.0.0.0",
+                                "type": "other",
+                                "name": null,
+                                "text": null,
+                                "bounds": {
+                                  "x": 0.0,
+                                  "y": 0.0,
+                                  "width": 402.0,
+                                  "height": 874.0
+                                },
+                                "children": [
+                                  {
+                                    "id": "0.0.1.0.0.0.0.0.0",
+                                    "type": "other",
+                                    "name": null,
+                                    "text": null,
+                                    "bounds": {
+                                      "x": 0.0,
+                                      "y": 0.0,
+                                      "width": 402.0,
+                                      "height": 874.0
+                                    },
+                                    "children": [
+                                      {
+                                        "id": "0.0.1.0.0.0.0.0.0.0",
+                                        "type": "other",
+                                        "name": null,
+                                        "text": null,
+                                        "bounds": {
+                                          "x": 0.0,
+                                          "y": 0.0,
+                                          "width": 402.0,
+                                          "height": 874.0
+                                        },
+                                        "children": [
+                                          {
+                                            "id": "0.0.1.0.0.0.0.0.0.0.0",
+                                            "type": "other",
+                                            "name": null,
+                                            "text": null,
+                                            "bounds": {
+                                              "x": 0.0,
+                                              "y": 0.0,
+                                              "width": 402.0,
+                                              "height": 874.0
+                                            },
+                                            "children": [
+                                              {
+                                                "id": "0.0.1.0.0.0.0.0.0.0.0.0",
+                                                "type": "other",
+                                                "name": null,
+                                                "text": null,
+                                                "bounds": {
+                                                  "x": 0.0,
+                                                  "y": 0.0,
+                                                  "width": 402.0,
+                                                  "height": 874.0
+                                                },
+                                                "children": [
+                                                  {
+                                                    "id": "0.0.1.0.0.0.0.0.0.0.0.0.0",
+                                                    "type": "other",
+                                                    "name": null,
+                                                    "text": null,
+                                                    "bounds": {
+                                                      "x": 0.0,
+                                                      "y": 0.0,
+                                                      "width": 402.0,
+                                                      "height": 874.0
+                                                    },
+                                                    "children": [
+                                                      {
+                                                        "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.0",
+                                                        "type": "navigation_bar",
+                                                        "name": "Journal",
+                                                        "text": null,
+                                                        "bounds": {
+                                                          "x": 0.0,
+                                                          "y": 62.0,
+                                                          "width": 402.0,
+                                                          "height": 106.0
+                                                        },
+                                                        "children": [
+                                                          {
+                                                            "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.0.0",
+                                                            "type": "other",
+                                                            "name": null,
+                                                            "text": null,
+                                                            "bounds": {
+                                                              "x": 16.0,
+                                                              "y": 66.0,
+                                                              "width": 52.0,
+                                                              "height": 36.0
+                                                            },
+                                                            "children": [
+                                                              {
+                                                                "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.0.0.0",
+                                                                "type": "other",
+                                                                "name": null,
+                                                                "text": null,
+                                                                "bounds": {
+                                                                  "x": 16.0,
+                                                                  "y": 66.0,
+                                                                  "width": 52.0,
+                                                                  "height": 36.0
+                                                                },
+                                                                "children": [
+                                                                  {
+                                                                    "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.0.0.0.0",
+                                                                    "type": "button",
+                                                                    "name": "Sort and filter",
+                                                                    "text": "Sort and filter",
+                                                                    "bounds": {
+                                                                      "x": 16.0,
+                                                                      "y": 66.0,
+                                                                      "width": 52.0,
+                                                                      "height": 36.0
+                                                                    },
+                                                                    "children": [
+                                                                      {
+                                                                        "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0",
+                                                                        "type": "button",
+                                                                        "name": null,
+                                                                        "text": null,
+                                                                        "bounds": {
+                                                                          "x": 16.0,
+                                                                          "y": 66.0,
+                                                                          "width": 52.0,
+                                                                          "height": 36.0
+                                                                        },
+                                                                        "children": [
+                                                                          {
+                                                                            "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0",
+                                                                            "type": "image",
+                                                                            "name": "ic_filter",
+                                                                            "text": "ic_filter",
+                                                                            "bounds": {
+                                                                              "x": 22.0,
+                                                                              "y": 64.0,
+                                                                              "width": 40.0,
+                                                                              "height": 40.0
+                                                                            },
+                                                                            "children": [],
+                                                                            "attributes": {
+                                                                              "native_type": "Image",
+                                                                              "enabled": "true",
+                                                                              "visible": "false"
+                                                                            },
+                                                                            "accessibility": {
+                                                                              "label": "ic_filter",
+                                                                              "accessible": true
+                                                                            },
+                                                                            "runtime": {},
+                                                                            "source_mapping": null
+                                                                          }
+                                                                        ],
+                                                                        "attributes": {
+                                                                          "native_type": "Button",
+                                                                          "enabled": "true",
+                                                                          "visible": "false"
+                                                                        },
+                                                                        "accessibility": {
+                                                                          "accessible": true
+                                                                        },
+                                                                        "runtime": {},
+                                                                        "source_mapping": null
+                                                                      }
+                                                                    ],
+                                                                    "attributes": {
+                                                                      "native_type": "Button",
+                                                                      "enabled": "true",
+                                                                      "visible": "true"
+                                                                    },
+                                                                    "accessibility": {
+                                                                      "label": "Sort and filter",
+                                                                      "accessible": true
+                                                                    },
+                                                                    "runtime": {},
+                                                                    "source_mapping": null
+                                                                  }
+                                                                ],
+                                                                "attributes": {
+                                                                  "native_type": "Other",
+                                                                  "enabled": "true",
+                                                                  "visible": "false"
+                                                                },
+                                                                "accessibility": {
+                                                                  "accessible": true
+                                                                },
+                                                                "runtime": {},
+                                                                "source_mapping": null
+                                                              }
+                                                            ],
+                                                            "attributes": {
+                                                              "native_type": "Other",
+                                                              "enabled": "true",
+                                                              "visible": "true"
+                                                            },
+                                                            "accessibility": {
+                                                              "accessible": true
+                                                            },
+                                                            "runtime": {},
+                                                            "source_mapping": null
+                                                          },
+                                                          {
+                                                            "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.0.1",
+                                                            "type": "other",
+                                                            "name": null,
+                                                            "text": null,
+                                                            "bounds": {
+                                                              "x": 334.0,
+                                                              "y": 66.0,
+                                                              "width": 52.0,
+                                                              "height": 36.0
+                                                            },
+                                                            "children": [
+                                                              {
+                                                                "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.0.1.0",
+                                                                "type": "other",
+                                                                "name": null,
+                                                                "text": null,
+                                                                "bounds": {
+                                                                  "x": 334.0,
+                                                                  "y": 66.0,
+                                                                  "width": 52.0,
+                                                                  "height": 36.0
+                                                                },
+                                                                "children": [
+                                                                  {
+                                                                    "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.0.1.0.0",
+                                                                    "type": "button",
+                                                                    "name": "More",
+                                                                    "text": "More",
+                                                                    "bounds": {
+                                                                      "x": 334.0,
+                                                                      "y": 66.0,
+                                                                      "width": 52.0,
+                                                                      "height": 36.0
+                                                                    },
+                                                                    "children": [
+                                                                      {
+                                                                        "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.0.1.0.0.0",
+                                                                        "type": "button",
+                                                                        "name": null,
+                                                                        "text": null,
+                                                                        "bounds": {
+                                                                          "x": 334.0,
+                                                                          "y": 66.0,
+                                                                          "width": 52.0,
+                                                                          "height": 36.0
+                                                                        },
+                                                                        "children": [
+                                                                          {
+                                                                            "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.0.1.0.0.0.0",
+                                                                            "type": "image",
+                                                                            "name": "ellipsis",
+                                                                            "text": "More",
+                                                                            "bounds": {
+                                                                              "x": 340.0,
+                                                                              "y": 64.0,
+                                                                              "width": 40.0,
+                                                                              "height": 40.0
+                                                                            },
+                                                                            "children": [],
+                                                                            "attributes": {
+                                                                              "native_type": "Image",
+                                                                              "identifier": "ellipsis",
+                                                                              "enabled": "true",
+                                                                              "visible": "false"
+                                                                            },
+                                                                            "accessibility": {
+                                                                              "label": "More",
+                                                                              "accessible": true
+                                                                            },
+                                                                            "runtime": {},
+                                                                            "source_mapping": null
+                                                                          }
+                                                                        ],
+                                                                        "attributes": {
+                                                                          "native_type": "Button",
+                                                                          "enabled": "true",
+                                                                          "visible": "false"
+                                                                        },
+                                                                        "accessibility": {
+                                                                          "accessible": true
+                                                                        },
+                                                                        "runtime": {},
+                                                                        "source_mapping": null
+                                                                      }
+                                                                    ],
+                                                                    "attributes": {
+                                                                      "native_type": "Button",
+                                                                      "enabled": "true",
+                                                                      "visible": "true"
+                                                                    },
+                                                                    "accessibility": {
+                                                                      "label": "More",
+                                                                      "accessible": true
+                                                                    },
+                                                                    "runtime": {},
+                                                                    "source_mapping": null
+                                                                  }
+                                                                ],
+                                                                "attributes": {
+                                                                  "native_type": "Other",
+                                                                  "enabled": "true",
+                                                                  "visible": "false"
+                                                                },
+                                                                "accessibility": {
+                                                                  "accessible": true
+                                                                },
+                                                                "runtime": {},
+                                                                "source_mapping": null
+                                                              }
+                                                            ],
+                                                            "attributes": {
+                                                              "native_type": "Other",
+                                                              "enabled": "true",
+                                                              "visible": "true"
+                                                            },
+                                                            "accessibility": {
+                                                              "accessible": true
+                                                            },
+                                                            "runtime": {},
+                                                            "source_mapping": null
+                                                          },
+                                                          {
+                                                            "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.0.2",
+                                                            "type": "static_text",
+                                                            "name": "Journal",
+                                                            "text": "Journal",
+                                                            "bounds": {
+                                                              "x": 15.0,
+                                                              "y": 119.0,
+                                                              "width": 121.0,
+                                                              "height": 42.0
+                                                            },
+                                                            "children": [],
+                                                            "attributes": {
+                                                              "native_type": "StaticText",
+                                                              "enabled": "true",
+                                                              "visible": "true"
+                                                            },
+                                                            "accessibility": {
+                                                              "label": "Journal",
+                                                              "value": "Journal",
+                                                              "accessible": true
+                                                            },
+                                                            "runtime": {},
+                                                            "source_mapping": null
+                                                          }
+                                                        ],
+                                                        "attributes": {
+                                                          "native_type": "NavigationBar",
+                                                          "identifier": "Journal",
+                                                          "enabled": "true",
+                                                          "visible": "true"
+                                                        },
+                                                        "accessibility": {
+                                                          "accessible": true
+                                                        },
+                                                        "runtime": {},
+                                                        "source_mapping": null
+                                                      },
+                                                      {
+                                                        "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.1",
+                                                        "type": "other",
+                                                        "name": null,
+                                                        "text": null,
+                                                        "bounds": {
+                                                          "x": 0.0,
+                                                          "y": 0.0,
+                                                          "width": 402.0,
+                                                          "height": 874.0
+                                                        },
+                                                        "children": [
+                                                          {
+                                                            "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.1.0",
+                                                            "type": "other",
+                                                            "name": null,
+                                                            "text": null,
+                                                            "bounds": {
+                                                              "x": 0.0,
+                                                              "y": 0.0,
+                                                              "width": 402.0,
+                                                              "height": 874.0
+                                                            },
+                                                            "children": [
+                                                              {
+                                                                "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0",
+                                                                "type": "other",
+                                                                "name": null,
+                                                                "text": null,
+                                                                "bounds": {
+                                                                  "x": 0.0,
+                                                                  "y": 0.0,
+                                                                  "width": 402.0,
+                                                                  "height": 874.0
+                                                                },
+                                                                "children": [
+                                                                  {
+                                                                    "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0",
+                                                                    "type": "other",
+                                                                    "name": null,
+                                                                    "text": null,
+                                                                    "bounds": {
+                                                                      "x": 0.0,
+                                                                      "y": 0.0,
+                                                                      "width": 402.0,
+                                                                      "height": 874.0
+                                                                    },
+                                                                    "children": [
+                                                                      {
+                                                                        "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0.0",
+                                                                        "type": "scroll_view",
+                                                                        "name": null,
+                                                                        "text": null,
+                                                                        "bounds": {
+                                                                          "x": 0.0,
+                                                                          "y": 0.0,
+                                                                          "width": 402.0,
+                                                                          "height": 874.0
+                                                                        },
+                                                                        "children": [
+                                                                          {
+                                                                            "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0.0.0",
+                                                                            "type": "other",
+                                                                            "name": null,
+                                                                            "text": null,
+                                                                            "bounds": {
+                                                                              "x": 0.0,
+                                                                              "y": 0.0,
+                                                                              "width": 402.0,
+                                                                              "height": 874.0
+                                                                            },
+                                                                            "children": [
+                                                                              {
+                                                                                "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0.0.0.0",
+                                                                                "type": "other",
+                                                                                "name": null,
+                                                                                "text": null,
+                                                                                "bounds": {
+                                                                                  "x": 0.0,
+                                                                                  "y": 0.0,
+                                                                                  "width": 402.0,
+                                                                                  "height": 156.0
+                                                                                },
+                                                                                "children": [],
+                                                                                "attributes": {
+                                                                                  "native_type": "Other",
+                                                                                  "enabled": "true",
+                                                                                  "visible": "false"
+                                                                                },
+                                                                                "accessibility": {
+                                                                                  "accessible": true
+                                                                                },
+                                                                                "runtime": {},
+                                                                                "source_mapping": null
+                                                                              },
+                                                                              {
+                                                                                "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0.0.0.1",
+                                                                                "type": "other",
+                                                                                "name": null,
+                                                                                "text": null,
+                                                                                "bounds": {
+                                                                                  "x": 0.0,
+                                                                                  "y": 741.0,
+                                                                                  "width": 402.0,
+                                                                                  "height": 133.0
+                                                                                },
+                                                                                "children": [],
+                                                                                "attributes": {
+                                                                                  "native_type": "Other",
+                                                                                  "enabled": "true",
+                                                                                  "visible": "true"
+                                                                                },
+                                                                                "accessibility": {
+                                                                                  "accessible": true
+                                                                                },
+                                                                                "runtime": {},
+                                                                                "source_mapping": null
+                                                                              }
+                                                                            ],
+                                                                            "attributes": {
+                                                                              "native_type": "Other",
+                                                                              "enabled": "true",
+                                                                              "visible": "true"
+                                                                            },
+                                                                            "accessibility": {
+                                                                              "accessible": true
+                                                                            },
+                                                                            "runtime": {},
+                                                                            "source_mapping": null
+                                                                          },
+                                                                          {
+                                                                            "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0.0.1",
+                                                                            "type": "other",
+                                                                            "name": null,
+                                                                            "text": null,
+                                                                            "bounds": {
+                                                                              "x": 0.0,
+                                                                              "y": 0.0,
+                                                                              "width": 402.0,
+                                                                              "height": 874.0
+                                                                            },
+                                                                            "children": [],
+                                                                            "attributes": {
+                                                                              "native_type": "Other",
+                                                                              "enabled": "true",
+                                                                              "visible": "true"
+                                                                            },
+                                                                            "accessibility": {
+                                                                              "accessible": true
+                                                                            },
+                                                                            "runtime": {},
+                                                                            "source_mapping": null
+                                                                          },
+                                                                          {
+                                                                            "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0.0.2",
+                                                                            "type": "other",
+                                                                            "name": null,
+                                                                            "text": null,
+                                                                            "bounds": {
+                                                                              "x": 0.0,
+                                                                              "y": 168.0,
+                                                                              "width": 402.0,
+                                                                              "height": 282.0
+                                                                            },
+                                                                            "children": [
+                                                                              {
+                                                                                "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0.0.2.0",
+                                                                                "type": "static_text",
+                                                                                "name": "Stories",
+                                                                                "text": "Stories",
+                                                                                "bounds": {
+                                                                                  "x": 20.0,
+                                                                                  "y": 172.0,
+                                                                                  "width": 60.0,
+                                                                                  "height": 22.0
+                                                                                },
+                                                                                "children": [],
+                                                                                "attributes": {
+                                                                                  "native_type": "StaticText",
+                                                                                  "enabled": "true",
+                                                                                  "visible": "true"
+                                                                                },
+                                                                                "accessibility": {
+                                                                                  "label": "Stories",
+                                                                                  "value": "Stories",
+                                                                                  "accessible": true
+                                                                                },
+                                                                                "runtime": {},
+                                                                                "source_mapping": null
+                                                                              },
+                                                                              {
+                                                                                "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0.0.2.1",
+                                                                                "type": "static_text",
+                                                                                "name": "The Field Guide in Your Hands",
+                                                                                "text": "The Field Guide in Your Hands",
+                                                                                "bounds": {
+                                                                                  "x": 76.0,
+                                                                                  "y": 219.0,
+                                                                                  "width": 251.0,
+                                                                                  "height": 23.0
+                                                                                },
+                                                                                "children": [],
+                                                                                "attributes": {
+                                                                                  "native_type": "StaticText",
+                                                                                  "enabled": "true",
+                                                                                  "visible": "true"
+                                                                                },
+                                                                                "accessibility": {
+                                                                                  "label": "The Field Guide in Your Hands",
+                                                                                  "value": "The Field Guide in Your Hands",
+                                                                                  "accessible": true
+                                                                                },
+                                                                                "runtime": {},
+                                                                                "source_mapping": null
+                                                                              },
+                                                                              {
+                                                                                "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0.0.2.2",
+                                                                                "type": "image",
+                                                                                "name": "figure.run",
+                                                                                "text": "Running",
+                                                                                "bounds": {
+                                                                                  "x": 34.0,
+                                                                                  "y": 232.0,
+                                                                                  "width": 16.0,
+                                                                                  "height": 20.0
+                                                                                },
+                                                                                "children": [],
+                                                                                "attributes": {
+                                                                                  "native_type": "Image",
+                                                                                  "identifier": "figure.run",
+                                                                                  "enabled": "true",
+                                                                                  "visible": "true"
+                                                                                },
+                                                                                "accessibility": {
+                                                                                  "label": "Running",
+                                                                                  "accessible": true
+                                                                                },
+                                                                                "runtime": {},
+                                                                                "source_mapping": null
+                                                                              },
+                                                                              {
+                                                                                "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0.0.2.3",
+                                                                                "type": "static_text",
+                                                                                "name": "T",
+                                                                                "text": "T",
+                                                                                "bounds": {
+                                                                                  "x": 84.0,
+                                                                                  "y": 253.0,
+                                                                                  "width": 6.0,
+                                                                                  "height": 11.0
+                                                                                },
+                                                                                "children": [],
+                                                                                "attributes": {
+                                                                                  "native_type": "StaticText",
+                                                                                  "enabled": "true",
+                                                                                  "visible": "true"
+                                                                                },
+                                                                                "accessibility": {
+                                                                                  "label": "T",
+                                                                                  "value": "T",
+                                                                                  "accessible": true
+                                                                                },
+                                                                                "runtime": {},
+                                                                                "source_mapping": null
+                                                                              },
+                                                                              {
+                                                                                "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0.0.2.4",
+                                                                                "type": "static_text",
+                                                                                "name": "14 Sep",
+                                                                                "text": "14 Sep",
+                                                                                "bounds": {
+                                                                                  "x": 106.0,
+                                                                                  "y": 250.0,
+                                                                                  "width": 42.0,
+                                                                                  "height": 17.0
+                                                                                },
+                                                                                "children": [],
+                                                                                "attributes": {
+                                                                                  "native_type": "StaticText",
+                                                                                  "enabled": "true",
+                                                                                  "visible": "true"
+                                                                                },
+                                                                                "accessibility": {
+                                                                                  "label": "14 Sep",
+                                                                                  "value": "14 Sep",
+                                                                                  "accessible": true
+                                                                                },
+                                                                                "runtime": {},
+                                                                                "source_mapping": null
+                                                                              },
+                                                                              {
+                                                                                "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0.0.2.5",
+                                                                                "type": "static_text",
+                                                                                "name": "Recipes",
+                                                                                "text": "Recipes",
+                                                                                "bounds": {
+                                                                                  "x": 20.0,
+                                                                                  "y": 327.0,
+                                                                                  "width": 67.0,
+                                                                                  "height": 23.0
+                                                                                },
+                                                                                "children": [],
+                                                                                "attributes": {
+                                                                                  "native_type": "StaticText",
+                                                                                  "enabled": "true",
+                                                                                  "visible": "true"
+                                                                                },
+                                                                                "accessibility": {
+                                                                                  "label": "Recipes",
+                                                                                  "value": "Recipes",
+                                                                                  "accessible": true
+                                                                                },
+                                                                                "runtime": {},
+                                                                                "source_mapping": null
+                                                                              }
+                                                                            ],
+                                                                            "attributes": {
+                                                                              "native_type": "Other",
+                                                                              "enabled": "true",
+                                                                              "visible": "false"
+                                                                            },
+                                                                            "accessibility": {
+                                                                              "accessible": true
+                                                                            },
+                                                                            "runtime": {},
+                                                                            "source_mapping": null
+                                                                          },
+                                                                          {
+                                                                            "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0.0.3",
+                                                                            "type": "other",
+                                                                            "name": "Vertical scroll bar, 1 page",
+                                                                            "text": "Vertical scroll bar, 1 page",
+                                                                            "bounds": {
+                                                                              "x": 369.0,
+                                                                              "y": 116.0,
+                                                                              "width": 30.0,
+                                                                              "height": 675.0
+                                                                            },
+                                                                            "children": [
+                                                                              {
+                                                                                "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0.0.3.0",
+                                                                                "type": "other",
+                                                                                "name": null,
+                                                                                "text": null,
+                                                                                "bounds": {
+                                                                                  "x": 396.0,
+                                                                                  "y": 460.0,
+                                                                                  "width": 3.0,
+                                                                                  "height": 328.0
+                                                                                },
+                                                                                "children": [],
+                                                                                "attributes": {
+                                                                                  "native_type": "Other",
+                                                                                  "enabled": "true",
+                                                                                  "visible": "true"
+                                                                                },
+                                                                                "accessibility": {
+                                                                                  "accessible": true
+                                                                                },
+                                                                                "runtime": {},
+                                                                                "source_mapping": null
+                                                                              }
+                                                                            ],
+                                                                            "attributes": {
+                                                                              "native_type": "Other",
+                                                                              "enabled": "true",
+                                                                              "visible": "true"
+                                                                            },
+                                                                            "accessibility": {
+                                                                              "label": "Vertical scroll bar, 1 page",
+                                                                              "value": "0%",
+                                                                              "accessible": true
+                                                                            },
+                                                                            "runtime": {},
+                                                                            "source_mapping": null
+                                                                          },
+                                                                          {
+                                                                            "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0.0.4",
+                                                                            "type": "other",
+                                                                            "name": "Vertical scroll bar, 1 page",
+                                                                            "text": "Vertical scroll bar, 1 page",
+                                                                            "bounds": {
+                                                                              "x": 369.0,
+                                                                              "y": 116.0,
+                                                                              "width": 30.0,
+                                                                              "height": 675.0
+                                                                            },
+                                                                            "children": [
+                                                                              {
+                                                                                "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0.0.4.0",
+                                                                                "type": "other",
+                                                                                "name": null,
+                                                                                "text": null,
+                                                                                "bounds": {
+                                                                                  "x": 396.0,
+                                                                                  "y": 460.0,
+                                                                                  "width": 3.0,
+                                                                                  "height": 328.0
+                                                                                },
+                                                                                "children": [],
+                                                                                "attributes": {
+                                                                                  "native_type": "Other",
+                                                                                  "enabled": "true",
+                                                                                  "visible": "true"
+                                                                                },
+                                                                                "accessibility": {
+                                                                                  "accessible": true
+                                                                                },
+                                                                                "runtime": {},
+                                                                                "source_mapping": null
+                                                                              }
+                                                                            ],
+                                                                            "attributes": {
+                                                                              "native_type": "Other",
+                                                                              "enabled": "true",
+                                                                              "visible": "true"
+                                                                            },
+                                                                            "accessibility": {
+                                                                              "label": "Vertical scroll bar, 1 page",
+                                                                              "value": "0%",
+                                                                              "accessible": true
+                                                                            },
+                                                                            "runtime": {},
+                                                                            "source_mapping": null
+                                                                          }
+                                                                        ],
+                                                                        "attributes": {
+                                                                          "native_type": "ScrollView",
+                                                                          "enabled": "true",
+                                                                          "visible": "true"
+                                                                        },
+                                                                        "accessibility": {
+                                                                          "accessible": true
+                                                                        },
+                                                                        "runtime": {},
+                                                                        "source_mapping": null
+                                                                      },
+                                                                      {
+                                                                        "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0.1",
+                                                                        "type": "button",
+                                                                        "name": "Add to Journal",
+                                                                        "text": "Add to Journal",
+                                                                        "bounds": {
+                                                                          "x": 324.0,
+                                                                          "y": 717.0,
+                                                                          "width": 56.0,
+                                                                          "height": 56.0
+                                                                        },
+                                                                        "children": [
+                                                                          {
+                                                                            "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0.1.0",
+                                                                            "type": "image",
+                                                                            "name": "plus",
+                                                                            "text": "Add",
+                                                                            "bounds": {
+                                                                              "x": 324.0,
+                                                                              "y": 717.0,
+                                                                              "width": 56.0,
+                                                                              "height": 56.0
+                                                                            },
+                                                                            "children": [],
+                                                                            "attributes": {
+                                                                              "native_type": "Image",
+                                                                              "identifier": "plus",
+                                                                              "enabled": "true",
+                                                                              "visible": "true"
+                                                                            },
+                                                                            "accessibility": {
+                                                                              "label": "Add",
+                                                                              "accessible": true
+                                                                            },
+                                                                            "runtime": {},
+                                                                            "source_mapping": null
+                                                                          }
+                                                                        ],
+                                                                        "attributes": {
+                                                                          "native_type": "Button",
+                                                                          "enabled": "true",
+                                                                          "visible": "true"
+                                                                        },
+                                                                        "accessibility": {
+                                                                          "label": "Add to Journal",
+                                                                          "accessible": true
+                                                                        },
+                                                                        "runtime": {},
+                                                                        "source_mapping": null
+                                                                      }
+                                                                    ],
+                                                                    "attributes": {
+                                                                      "native_type": "Other",
+                                                                      "enabled": "true",
+                                                                      "visible": "false"
+                                                                    },
+                                                                    "accessibility": {
+                                                                      "accessible": true
+                                                                    },
+                                                                    "runtime": {},
+                                                                    "source_mapping": null
+                                                                  }
+                                                                ],
+                                                                "attributes": {
+                                                                  "native_type": "Other",
+                                                                  "enabled": "true",
+                                                                  "visible": "true"
+                                                                },
+                                                                "accessibility": {
+                                                                  "accessible": true
+                                                                },
+                                                                "runtime": {},
+                                                                "source_mapping": null
+                                                              }
+                                                            ],
+                                                            "attributes": {
+                                                              "native_type": "Other",
+                                                              "enabled": "true",
+                                                              "visible": "true"
+                                                            },
+                                                            "accessibility": {
+                                                              "accessible": true
+                                                            },
+                                                            "runtime": {},
+                                                            "source_mapping": null
+                                                          }
+                                                        ],
+                                                        "attributes": {
+                                                          "native_type": "Other",
+                                                          "enabled": "true",
+                                                          "visible": "true"
+                                                        },
+                                                        "accessibility": {
+                                                          "accessible": true
+                                                        },
+                                                        "runtime": {},
+                                                        "source_mapping": null
+                                                      },
+                                                      {
+                                                        "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.2",
+                                                        "type": "toolbar",
+                                                        "name": "Toolbar",
+                                                        "text": "Toolbar",
+                                                        "bounds": {
+                                                          "x": 0.0,
+                                                          "y": 0.0,
+                                                          "width": 402.0,
+                                                          "height": 874.0
+                                                        },
+                                                        "children": [
+                                                          {
+                                                            "id": "0.0.1.0.0.0.0.0.0.0.0.0.0.2.0",
+                                                            "type": "other",
+                                                            "name": null,
+                                                            "text": null,
+                                                            "bounds": {
+                                                              "x": 0.0,
+                                                              "y": 0.0,
+                                                              "width": 402.0,
+                                                              "height": 874.0
+                                                            },
+                                                            "children": [],
+                                                            "attributes": {
+                                                              "native_type": "Other",
+                                                              "enabled": "true",
+                                                              "visible": "false"
+                                                            },
+                                                            "accessibility": {
+                                                              "accessible": true
+                                                            },
+                                                            "runtime": {},
+                                                            "source_mapping": null
+                                                          }
+                                                        ],
+                                                        "attributes": {
+                                                          "native_type": "Toolbar",
+                                                          "identifier": "Toolbar",
+                                                          "enabled": "true",
+                                                          "visible": "false"
+                                                        },
+                                                        "accessibility": {
+                                                          "label": "Toolbar",
+                                                          "accessible": true
+                                                        },
+                                                        "runtime": {},
+                                                        "source_mapping": null
+                                                      }
+                                                    ],
+                                                    "attributes": {
+                                                      "native_type": "Other",
+                                                      "enabled": "true",
+                                                      "visible": "true"
+                                                    },
+                                                    "accessibility": {
+                                                      "accessible": true
+                                                    },
+                                                    "runtime": {},
+                                                    "source_mapping": null
+                                                  }
+                                                ],
+                                                "attributes": {
+                                                  "native_type": "Other",
+                                                  "enabled": "true",
+                                                  "visible": "true"
+                                                },
+                                                "accessibility": {
+                                                  "accessible": true
+                                                },
+                                                "runtime": {},
+                                                "source_mapping": null
+                                              }
+                                            ],
+                                            "attributes": {
+                                              "native_type": "Other",
+                                              "enabled": "true",
+                                              "visible": "false"
+                                            },
+                                            "accessibility": {
+                                              "accessible": true
+                                            },
+                                            "runtime": {},
+                                            "source_mapping": null
+                                          }
+                                        ],
+                                        "attributes": {
+                                          "native_type": "Other",
+                                          "enabled": "true",
+                                          "visible": "true"
+                                        },
+                                        "accessibility": {
+                                          "accessible": true
+                                        },
+                                        "runtime": {},
+                                        "source_mapping": null
+                                      }
+                                    ],
+                                    "attributes": {
+                                      "native_type": "Other",
+                                      "enabled": "true",
+                                      "visible": "true"
+                                    },
+                                    "accessibility": {
+                                      "accessible": true
+                                    },
+                                    "runtime": {},
+                                    "source_mapping": null
+                                  }
+                                ],
+                                "attributes": {
+                                  "native_type": "Other",
+                                  "enabled": "true",
+                                  "visible": "true"
+                                },
+                                "accessibility": {
+                                  "accessible": true
+                                },
+                                "runtime": {},
+                                "source_mapping": null
+                              },
+                              {
+                                "id": "0.0.1.0.0.0.0.1",
+                                "type": "other",
+                                "name": null,
+                                "text": null,
+                                "bounds": {
+                                  "x": 0.0,
+                                  "y": 0.0,
+                                  "width": 402.0,
+                                  "height": 874.0
+                                },
+                                "children": [
+                                  {
+                                    "id": "0.0.1.0.0.0.0.1.0",
+                                    "type": "other",
+                                    "name": null,
+                                    "text": null,
+                                    "bounds": {
+                                      "x": 0.0,
+                                      "y": 791.0,
+                                      "width": 402.0,
+                                      "height": 83.0
+                                    },
+                                    "children": [
+                                      {
+                                        "id": "0.0.1.0.0.0.0.1.0.0",
+                                        "type": "other",
+                                        "name": null,
+                                        "text": null,
+                                        "bounds": {
+                                          "x": 0.0,
+                                          "y": 0.0,
+                                          "width": 402.0,
+                                          "height": 874.0
+                                        },
+                                        "children": [
+                                          {
+                                            "id": "0.0.1.0.0.0.0.1.0.0.0",
+                                            "type": "tab_bar",
+                                            "name": "Tab Bar",
+                                            "text": "Tab Bar",
+                                            "bounds": {
+                                              "x": 0.0,
+                                              "y": 791.0,
+                                              "width": 402.0,
+                                              "height": 83.0
+                                            },
+                                            "children": [
+                                              {
+                                                "id": "0.0.1.0.0.0.0.1.0.0.0.0",
+                                                "type": "other",
+                                                "name": null,
+                                                "text": null,
+                                                "bounds": {
+                                                  "x": 21.0,
+                                                  "y": 791.0,
+                                                  "width": 360.0,
+                                                  "height": 62.0
+                                                },
+                                                "children": [
+                                                  {
+                                                    "id": "0.0.1.0.0.0.0.1.0.0.0.0.0",
+                                                    "type": "other",
+                                                    "name": null,
+                                                    "text": null,
+                                                    "bounds": {
+                                                      "x": 21.0,
+                                                      "y": 791.0,
+                                                      "width": 98.0,
+                                                      "height": 54.0
+                                                    },
+                                                    "children": [],
+                                                    "attributes": {
+                                                      "native_type": "Other",
+                                                      "enabled": "true",
+                                                      "visible": "true"
+                                                    },
+                                                    "accessibility": {
+                                                      "accessible": true
+                                                    },
+                                                    "runtime": {},
+                                                    "source_mapping": null
+                                                  },
+                                                  {
+                                                    "id": "0.0.1.0.0.0.0.1.0.0.0.0.1",
+                                                    "type": "other",
+                                                    "name": null,
+                                                    "text": null,
+                                                    "bounds": {
+                                                      "x": 21.0,
+                                                      "y": 791.0,
+                                                      "width": 360.0,
+                                                      "height": 62.0
+                                                    },
+                                                    "children": [
+                                                      {
+                                                        "id": "0.0.1.0.0.0.0.1.0.0.0.0.1.0",
+                                                        "type": "button",
+                                                        "name": "Feed",
+                                                        "text": "Feed",
+                                                        "bounds": {
+                                                          "x": 25.0,
+                                                          "y": 795.0,
+                                                          "width": 98.0,
+                                                          "height": 54.0
+                                                        },
+                                                        "children": [],
+                                                        "attributes": {
+                                                          "native_type": "Button",
+                                                          "enabled": "true",
+                                                          "visible": "true"
+                                                        },
+                                                        "accessibility": {
+                                                          "label": "Feed",
+                                                          "accessible": true
+                                                        },
+                                                        "runtime": {},
+                                                        "source_mapping": null
+                                                      },
+                                                      {
+                                                        "id": "0.0.1.0.0.0.0.1.0.0.0.0.1.1",
+                                                        "type": "button",
+                                                        "name": "Journal",
+                                                        "text": "Journal",
+                                                        "bounds": {
+                                                          "x": 109.0,
+                                                          "y": 795.0,
+                                                          "width": 99.0,
+                                                          "height": 54.0
+                                                        },
+                                                        "children": [],
+                                                        "attributes": {
+                                                          "native_type": "Button",
+                                                          "enabled": "true",
+                                                          "visible": "true"
+                                                        },
+                                                        "accessibility": {
+                                                          "label": "Journal",
+                                                          "value": "1",
+                                                          "accessible": true
+                                                        },
+                                                        "runtime": {},
+                                                        "source_mapping": null
+                                                      },
+                                                      {
+                                                        "id": "0.0.1.0.0.0.0.1.0.0.0.0.1.2",
+                                                        "type": "button",
+                                                        "name": "Tree",
+                                                        "text": "Tree",
+                                                        "bounds": {
+                                                          "x": 194.0,
+                                                          "y": 795.0,
+                                                          "width": 99.0,
+                                                          "height": 54.0
+                                                        },
+                                                        "children": [],
+                                                        "attributes": {
+                                                          "native_type": "Button",
+                                                          "enabled": "true",
+                                                          "visible": "true"
+                                                        },
+                                                        "accessibility": {
+                                                          "label": "Tree",
+                                                          "accessible": true
+                                                        },
+                                                        "runtime": {},
+                                                        "source_mapping": null
+                                                      },
+                                                      {
+                                                        "id": "0.0.1.0.0.0.0.1.0.0.0.0.1.3",
+                                                        "type": "button",
+                                                        "name": "Search",
+                                                        "text": "Search",
+                                                        "bounds": {
+                                                          "x": 279.0,
+                                                          "y": 795.0,
+                                                          "width": 98.0,
+                                                          "height": 54.0
+                                                        },
+                                                        "children": [],
+                                                        "attributes": {
+                                                          "native_type": "Button",
+                                                          "enabled": "true",
+                                                          "visible": "true"
+                                                        },
+                                                        "accessibility": {
+                                                          "label": "Search",
+                                                          "accessible": true
+                                                        },
+                                                        "runtime": {},
+                                                        "source_mapping": null
+                                                      }
+                                                    ],
+                                                    "attributes": {
+                                                      "native_type": "Other",
+                                                      "enabled": "true",
+                                                      "visible": "true"
+                                                    },
+                                                    "accessibility": {
+                                                      "accessible": true
+                                                    },
+                                                    "runtime": {},
+                                                    "source_mapping": null
+                                                  },
+                                                  {
+                                                    "id": "0.0.1.0.0.0.0.1.0.0.0.0.2",
+                                                    "type": "other",
+                                                    "name": null,
+                                                    "text": null,
+                                                    "bounds": {
+                                                      "x": 21.0,
+                                                      "y": 791.0,
+                                                      "width": 360.0,
+                                                      "height": 62.0
+                                                    },
+                                                    "children": [],
+                                                    "attributes": {
+                                                      "native_type": "Other",
+                                                      "enabled": "true",
+                                                      "visible": "true"
+                                                    },
+                                                    "accessibility": {
+                                                      "accessible": true
+                                                    },
+                                                    "runtime": {},
+                                                    "source_mapping": null
+                                                  },
+                                                  {
+                                                    "id": "0.0.1.0.0.0.0.1.0.0.0.0.3",
+                                                    "type": "other",
+                                                    "name": null,
+                                                    "text": null,
+                                                    "bounds": {
+                                                      "x": 109.0,
+                                                      "y": 795.0,
+                                                      "width": 99.0,
+                                                      "height": 54.0
+                                                    },
+                                                    "children": [
+                                                      {
+                                                        "id": "0.0.1.0.0.0.0.1.0.0.0.0.3.0",
+                                                        "type": "other",
+                                                        "name": null,
+                                                        "text": null,
+                                                        "bounds": {
+                                                          "x": 109.0,
+                                                          "y": 795.0,
+                                                          "width": 99.0,
+                                                          "height": 54.0
+                                                        },
+                                                        "children": [
+                                                          {
+                                                            "id": "0.0.1.0.0.0.0.1.0.0.0.0.3.0.0",
+                                                            "type": "other",
+                                                            "name": null,
+                                                            "text": null,
+                                                            "bounds": {
+                                                              "x": 109.0,
+                                                              "y": 795.0,
+                                                              "width": 99.0,
+                                                              "height": 54.0
+                                                            },
+                                                            "children": [],
+                                                            "attributes": {
+                                                              "native_type": "Other",
+                                                              "enabled": "true",
+                                                              "visible": "false"
+                                                            },
+                                                            "accessibility": {
+                                                              "accessible": true
+                                                            },
+                                                            "runtime": {},
+                                                            "source_mapping": null
+                                                          },
+                                                          {
+                                                            "id": "0.0.1.0.0.0.0.1.0.0.0.0.3.0.1",
+                                                            "type": "other",
+                                                            "name": null,
+                                                            "text": null,
+                                                            "bounds": {
+                                                              "x": 109.0,
+                                                              "y": 795.0,
+                                                              "width": 99.0,
+                                                              "height": 54.0
+                                                            },
+                                                            "children": [
+                                                              {
+                                                                "id": "0.0.1.0.0.0.0.1.0.0.0.0.3.0.1.0",
+                                                                "type": "other",
+                                                                "name": null,
+                                                                "text": null,
+                                                                "bounds": {
+                                                                  "x": 109.0,
+                                                                  "y": 795.0,
+                                                                  "width": 99.0,
+                                                                  "height": 54.0
+                                                                },
+                                                                "children": [
+                                                                  {
+                                                                    "id": "0.0.1.0.0.0.0.1.0.0.0.0.3.0.1.0.0",
+                                                                    "type": "other",
+                                                                    "name": null,
+                                                                    "text": null,
+                                                                    "bounds": {
+                                                                      "x": 109.0,
+                                                                      "y": 795.0,
+                                                                      "width": 99.0,
+                                                                      "height": 54.0
+                                                                    },
+                                                                    "children": [
+                                                                      {
+                                                                        "id": "0.0.1.0.0.0.0.1.0.0.0.0.3.0.1.0.0.0",
+                                                                        "type": "other",
+                                                                        "name": null,
+                                                                        "text": null,
+                                                                        "bounds": {
+                                                                          "x": 109.0,
+                                                                          "y": 795.0,
+                                                                          "width": 99.0,
+                                                                          "height": 54.0
+                                                                        },
+                                                                        "children": [],
+                                                                        "attributes": {
+                                                                          "native_type": "Other",
+                                                                          "enabled": "true",
+                                                                          "visible": "false"
+                                                                        },
+                                                                        "accessibility": {
+                                                                          "accessible": true
+                                                                        },
+                                                                        "runtime": {},
+                                                                        "source_mapping": null
+                                                                      }
+                                                                    ],
+                                                                    "attributes": {
+                                                                      "native_type": "Other",
+                                                                      "enabled": "true",
+                                                                      "visible": "false"
+                                                                    },
+                                                                    "accessibility": {
+                                                                      "accessible": true
+                                                                    },
+                                                                    "runtime": {},
+                                                                    "source_mapping": null
+                                                                  },
+                                                                  {
+                                                                    "id": "0.0.1.0.0.0.0.1.0.0.0.0.3.0.1.0.1",
+                                                                    "type": "other",
+                                                                    "name": null,
+                                                                    "text": null,
+                                                                    "bounds": {
+                                                                      "x": 109.0,
+                                                                      "y": 795.0,
+                                                                      "width": 99.0,
+                                                                      "height": 54.0
+                                                                    },
+                                                                    "children": [],
+                                                                    "attributes": {
+                                                                      "native_type": "Other",
+                                                                      "enabled": "true",
+                                                                      "visible": "false"
+                                                                    },
+                                                                    "accessibility": {
+                                                                      "accessible": true
+                                                                    },
+                                                                    "runtime": {},
+                                                                    "source_mapping": null
+                                                                  }
+                                                                ],
+                                                                "attributes": {
+                                                                  "native_type": "Other",
+                                                                  "enabled": "true",
+                                                                  "visible": "false"
+                                                                },
+                                                                "accessibility": {
+                                                                  "accessible": true
+                                                                },
+                                                                "runtime": {},
+                                                                "source_mapping": null
+                                                              },
+                                                              {
+                                                                "id": "0.0.1.0.0.0.0.1.0.0.0.0.3.0.1.1",
+                                                                "type": "other",
+                                                                "name": null,
+                                                                "text": null,
+                                                                "bounds": {
+                                                                  "x": 109.0,
+                                                                  "y": 795.0,
+                                                                  "width": 99.0,
+                                                                  "height": 54.0
+                                                                },
+                                                                "children": [],
+                                                                "attributes": {
+                                                                  "native_type": "Other",
+                                                                  "enabled": "true",
+                                                                  "visible": "false"
+                                                                },
+                                                                "accessibility": {
+                                                                  "accessible": true
+                                                                },
+                                                                "runtime": {},
+                                                                "source_mapping": null
+                                                              }
+                                                            ],
+                                                            "attributes": {
+                                                              "native_type": "Other",
+                                                              "enabled": "true",
+                                                              "visible": "false"
+                                                            },
+                                                            "accessibility": {
+                                                              "accessible": true
+                                                            },
+                                                            "runtime": {},
+                                                            "source_mapping": null
+                                                          }
+                                                        ],
+                                                        "attributes": {
+                                                          "native_type": "Other",
+                                                          "enabled": "true",
+                                                          "visible": "false"
+                                                        },
+                                                        "accessibility": {
+                                                          "accessible": true
+                                                        },
+                                                        "runtime": {},
+                                                        "source_mapping": null
+                                                      }
+                                                    ],
+                                                    "attributes": {
+                                                      "native_type": "Other",
+                                                      "enabled": "true",
+                                                      "visible": "false"
+                                                    },
+                                                    "accessibility": {
+                                                      "accessible": true
+                                                    },
+                                                    "runtime": {},
+                                                    "source_mapping": null
+                                                  }
+                                                ],
+                                                "attributes": {
+                                                  "native_type": "Other",
+                                                  "enabled": "true",
+                                                  "visible": "true"
+                                                },
+                                                "accessibility": {
+                                                  "accessible": true
+                                                },
+                                                "runtime": {},
+                                                "source_mapping": null
+                                              },
+                                              {
+                                                "id": "0.0.1.0.0.0.0.1.0.0.0.1",
+                                                "type": "other",
+                                                "name": null,
+                                                "text": null,
+                                                "bounds": {
+                                                  "x": 326.0,
+                                                  "y": 798.0,
+                                                  "width": 48.0,
+                                                  "height": 48.0
+                                                },
+                                                "children": [],
+                                                "attributes": {
+                                                  "native_type": "Other",
+                                                  "enabled": "true",
+                                                  "visible": "false"
+                                                },
+                                                "accessibility": {
+                                                  "accessible": true
+                                                },
+                                                "runtime": {},
+                                                "source_mapping": null
+                                              }
+                                            ],
+                                            "attributes": {
+                                              "native_type": "TabBar",
+                                              "enabled": "true",
+                                              "visible": "true"
+                                            },
+                                            "accessibility": {
+                                              "label": "Tab Bar",
+                                              "accessible": true
+                                            },
+                                            "runtime": {},
+                                            "source_mapping": null
+                                          }
+                                        ],
+                                        "attributes": {
+                                          "native_type": "Other",
+                                          "enabled": "true",
+                                          "visible": "true"
+                                        },
+                                        "accessibility": {
+                                          "accessible": true
+                                        },
+                                        "runtime": {},
+                                        "source_mapping": null
+                                      },
+                                      {
+                                        "id": "0.0.1.0.0.0.0.1.0.1",
+                                        "type": "other",
+                                        "name": null,
+                                        "text": null,
+                                        "bounds": {
+                                          "x": 0.0,
+                                          "y": 791.0,
+                                          "width": 402.0,
+                                          "height": 83.0
+                                        },
+                                        "children": [
+                                          {
+                                            "id": "0.0.1.0.0.0.0.1.0.1.0",
+                                            "type": "other",
+                                            "name": null,
+                                            "text": null,
+                                            "bounds": {
+                                              "x": 0.0,
+                                              "y": 791.0,
+                                              "width": 402.0,
+                                              "height": 83.0
+                                            },
+                                            "children": [
+                                              {
+                                                "id": "0.0.1.0.0.0.0.1.0.1.0.0",
+                                                "type": "other",
+                                                "name": null,
+                                                "text": null,
+                                                "bounds": {
+                                                  "x": 0.0,
+                                                  "y": 791.0,
+                                                  "width": 402.0,
+                                                  "height": 83.0
+                                                },
+                                                "children": [
+                                                  {
+                                                    "id": "0.0.1.0.0.0.0.1.0.1.0.0.0",
+                                                    "type": "other",
+                                                    "name": null,
+                                                    "text": null,
+                                                    "bounds": {
+                                                      "x": 0.0,
+                                                      "y": 791.0,
+                                                      "width": 402.0,
+                                                      "height": 83.0
+                                                    },
+                                                    "children": [
+                                                      {
+                                                        "id": "0.0.1.0.0.0.0.1.0.1.0.0.0.0",
+                                                        "type": "other",
+                                                        "name": null,
+                                                        "text": null,
+                                                        "bounds": {
+                                                          "x": 0.0,
+                                                          "y": 791.0,
+                                                          "width": 402.0,
+                                                          "height": 83.0
+                                                        },
+                                                        "children": [
+                                                          {
+                                                            "id": "0.0.1.0.0.0.0.1.0.1.0.0.0.0.0",
+                                                            "type": "other",
+                                                            "name": null,
+                                                            "text": null,
+                                                            "bounds": {
+                                                              "x": 0.0,
+                                                              "y": 791.0,
+                                                              "width": 402.0,
+                                                              "height": 83.0
+                                                            },
+                                                            "children": [],
+                                                            "attributes": {
+                                                              "native_type": "Other",
+                                                              "enabled": "true",
+                                                              "visible": "true"
+                                                            },
+                                                            "accessibility": {
+                                                              "accessible": true
+                                                            },
+                                                            "runtime": {},
+                                                            "source_mapping": null
+                                                          }
+                                                        ],
+                                                        "attributes": {
+                                                          "native_type": "Other",
+                                                          "enabled": "true",
+                                                          "visible": "true"
+                                                        },
+                                                        "accessibility": {
+                                                          "accessible": true
+                                                        },
+                                                        "runtime": {},
+                                                        "source_mapping": null
+                                                      }
+                                                    ],
+                                                    "attributes": {
+                                                      "native_type": "Other",
+                                                      "enabled": "true",
+                                                      "visible": "true"
+                                                    },
+                                                    "accessibility": {
+                                                      "accessible": true
+                                                    },
+                                                    "runtime": {},
+                                                    "source_mapping": null
+                                                  },
+                                                  {
+                                                    "id": "0.0.1.0.0.0.0.1.0.1.0.0.1",
+                                                    "type": "other",
+                                                    "name": null,
+                                                    "text": null,
+                                                    "bounds": {
+                                                      "x": 0.0,
+                                                      "y": 791.0,
+                                                      "width": 402.0,
+                                                      "height": 83.0
+                                                    },
+                                                    "children": [
+                                                      {
+                                                        "id": "0.0.1.0.0.0.0.1.0.1.0.0.1.0",
+                                                        "type": "other",
+                                                        "name": null,
+                                                        "text": null,
+                                                        "bounds": {
+                                                          "x": 0.0,
+                                                          "y": 791.0,
+                                                          "width": 402.0,
+                                                          "height": 83.0
+                                                        },
+                                                        "children": [],
+                                                        "attributes": {
+                                                          "native_type": "Other",
+                                                          "enabled": "true",
+                                                          "visible": "true"
+                                                        },
+                                                        "accessibility": {
+                                                          "accessible": true
+                                                        },
+                                                        "runtime": {},
+                                                        "source_mapping": null
+                                                      }
+                                                    ],
+                                                    "attributes": {
+                                                      "native_type": "Other",
+                                                      "enabled": "true",
+                                                      "visible": "true"
+                                                    },
+                                                    "accessibility": {
+                                                      "accessible": true
+                                                    },
+                                                    "runtime": {},
+                                                    "source_mapping": null
+                                                  }
+                                                ],
+                                                "attributes": {
+                                                  "native_type": "Other",
+                                                  "enabled": "true",
+                                                  "visible": "true"
+                                                },
+                                                "accessibility": {
+                                                  "accessible": true
+                                                },
+                                                "runtime": {},
+                                                "source_mapping": null
+                                              }
+                                            ],
+                                            "attributes": {
+                                              "native_type": "Other",
+                                              "enabled": "true",
+                                              "visible": "true"
+                                            },
+                                            "accessibility": {
+                                              "accessible": true
+                                            },
+                                            "runtime": {},
+                                            "source_mapping": null
+                                          }
+                                        ],
+                                        "attributes": {
+                                          "native_type": "Other",
+                                          "enabled": "true",
+                                          "visible": "true"
+                                        },
+                                        "accessibility": {
+                                          "accessible": true
+                                        },
+                                        "runtime": {},
+                                        "source_mapping": null
+                                      }
+                                    ],
+                                    "attributes": {
+                                      "native_type": "Other",
+                                      "enabled": "true",
+                                      "visible": "true"
+                                    },
+                                    "accessibility": {
+                                      "accessible": true
+                                    },
+                                    "runtime": {},
+                                    "source_mapping": null
+                                  }
+                                ],
+                                "attributes": {
+                                  "native_type": "Other",
+                                  "enabled": "true",
+                                  "visible": "true"
+                                },
+                                "accessibility": {
+                                  "accessible": true
+                                },
+                                "runtime": {},
+                                "source_mapping": null
+                              }
+                            ],
+                            "attributes": {
+                              "native_type": "Other",
+                              "enabled": "true",
+                              "visible": "true"
+                            },
+                            "accessibility": {
+                              "accessible": true
+                            },
+                            "runtime": {},
+                            "source_mapping": null
+                          }
+                        ],
+                        "attributes": {
+                          "native_type": "Other",
+                          "enabled": "true",
+                          "visible": "false"
+                        },
+                        "accessibility": {
+                          "accessible": true
+                        },
+                        "runtime": {},
+                        "source_mapping": null
+                      }
+                    ],
+                    "attributes": {
+                      "native_type": "Other",
+                      "enabled": "true",
+                      "visible": "true"
+                    },
+                    "accessibility": {
+                      "accessible": true
+                    },
+                    "runtime": {},
+                    "source_mapping": null
+                  }
+                ],
+                "attributes": {
+                  "native_type": "Other",
+                  "enabled": "true",
+                  "visible": "true"
+                },
+                "accessibility": {
+                  "accessible": true
+                },
+                "runtime": {},
+                "source_mapping": null
+              }
+            ],
+            "attributes": {
+              "native_type": "Other",
+              "enabled": "true",
+              "visible": "true"
+            },
+            "accessibility": {
+              "accessible": true
+            },
+            "runtime": {},
+            "source_mapping": null
+          }
+        ],
+        "attributes": {
+          "native_type": "Window",
+          "enabled": "true",
+          "visible": "true"
+        },
+        "accessibility": {
+          "accessible": true
+        },
+        "runtime": {},
+        "source_mapping": null
+      },
+      {
+        "id": "0.1",
+        "type": "window",
+        "name": null,
+        "text": null,
+        "bounds": {
+          "x": 0.0,
+          "y": 0.0,
+          "width": 402.0,
+          "height": 874.0
+        },
+        "children": [
+          {
+            "id": "0.1.0",
+            "type": "other",
+            "name": null,
+            "text": null,
+            "bounds": {
+              "x": 0.0,
+              "y": 0.0,
+              "width": 402.0,
+              "height": 874.0
+            },
+            "children": [
+              {
+                "id": "0.1.0.0",
+                "type": "other",
+                "name": null,
+                "text": null,
+                "bounds": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "width": 402.0,
+                  "height": 874.0
+                },
+                "children": [],
+                "attributes": {
+                  "native_type": "Other",
+                  "enabled": "true",
+                  "visible": "false"
+                },
+                "accessibility": {
+                  "accessible": true
+                },
+                "runtime": {},
+                "source_mapping": null
+              }
+            ],
+            "attributes": {
+              "native_type": "Other",
+              "enabled": "true",
+              "visible": "false"
+            },
+            "accessibility": {
+              "accessible": true
+            },
+            "runtime": {},
+            "source_mapping": null
+          }
+        ],
+        "attributes": {
+          "native_type": "Window",
+          "enabled": "true",
+          "visible": "false"
+        },
+        "accessibility": {
+          "accessible": true
+        },
+        "runtime": {},
+        "source_mapping": null
+      }
+    ],
+    "attributes": {
+      "native_type": "Application",
+      "enabled": "true",
+      "visible": "true"
+    },
+    "accessibility": {
+      "label": "Kinlily",
+      "accessible": true
+    },
+    "runtime": {},
+    "source_mapping": null
+  }
+}
