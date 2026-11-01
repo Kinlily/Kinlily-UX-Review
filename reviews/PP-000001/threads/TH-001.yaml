@@ -42,5 +42,10 @@ comments:
   body: In Journal screen, Add Stories, Recipes and Voice Capsule as three tabs and
     each tab with + fab which takes to create story, create recipe, create voice capsule.
   mentions: []
-last_comment: 1
+- id: C-002
+  author: Manjunath Kodanda Reddy
+  created_at: '2026-11-01T03:56:25.090324Z'
+  body: "Move filter icon to the place of \u2026 and remove \u2026 icon."
+  mentions: []
+last_comment: 2
 design_regions: []
