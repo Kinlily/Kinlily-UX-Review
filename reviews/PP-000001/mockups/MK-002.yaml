@@ -1,0 +1,25 @@
+schema_version: 1
+id: MK-002
+review_id: PP-000001
+thread_id: TH-001
+status: pending
+created_at: '2026-11-02T03:59:14.567517Z'
+agent: claude-code
+on_behalf_of: local
+rationale: 'Post cards now sit inset from the screen edges, with a margin each side,
+  rounded corners and a thin outline, so they read as separate cards.
+
+  The photo inside each card is inset and rounded to match.'
+image_file: reviews/PP-000001/mockups/MK-002.png
+html_file: reviews/PP-000001/mockups/MK-002.html
+width: 1206
+height: 2622
+base_state_index: 2
+replaces: MK-001
+decision: null
+run:
+  started_at: '2026-11-02T03:57:44.742194Z'
+  duration_seconds: 89.8
+  base_commit: 05f6c126ca2f5629b94f9892479e480a99582421
+  asked_by: local
+  isolation: none

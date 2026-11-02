@@ -1,0 +1,32 @@
+schema_version: 1
+id: MK-001
+review_id: PP-000001
+thread_id: TH-001
+status: changes_requested
+created_at: '2026-11-02T03:56:04.044101Z'
+agent: claude-code
+on_behalf_of: local
+rationale: 'Save now posts the entry to the top of the Family feed as a full-width
+  post: photo, author, who''s tagged, likes, comments and the date.
+
+  A short note confirms the post and says who was notified.
+
+  Tapping the post opens its details, where people reply, @-tag, edit or delete.'
+image_file: reviews/PP-000001/mockups/MK-001.png
+html_file: reviews/PP-000001/mockups/MK-001.html
+width: 1206
+height: 2622
+base_state_index: 2
+replaces: null
+decision:
+  outcome: changes_requested
+  by: Manjunath Kodanda Reddy
+  at: '2026-11-02T03:57:44.662333Z'
+  note: add padding to start and end of the post cards, right now its edge to edge.
+    Dont change or modify bottom bar.
+run:
+  started_at: '2026-11-02T03:55:10.431256Z'
+  duration_seconds: 53.6
+  base_commit: 05f6c126ca2f5629b94f9892479e480a99582421
+  asked_by: local
+  isolation: none
