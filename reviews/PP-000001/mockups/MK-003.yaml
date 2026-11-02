@@ -1,0 +1,29 @@
+schema_version: 1
+id: MK-003
+review_id: PP-000001
+thread_id: TH-001
+status: approved
+created_at: '2026-11-02T04:03:20.749243Z'
+agent: claude-code
+on_behalf_of: local
+rationale: 'The bottom bar now matches the app as it is: Feed, Journal and Tree in
+  one floating bar, with Search as its own round button beside it.
+
+  The New post button sits just above that bar, so it never covers a tab.'
+image_file: reviews/PP-000001/mockups/MK-003.png
+html_file: reviews/PP-000001/mockups/MK-003.html
+width: 1206
+height: 2622
+base_state_index: 2
+replaces: MK-002
+decision:
+  outcome: approved
+  by: Manjunath Kodanda Reddy
+  at: '2026-11-02T04:03:57.822434Z'
+  note: null
+run:
+  started_at: '2026-11-02T04:01:50.820393Z'
+  duration_seconds: 89.9
+  base_commit: 05f6c126ca2f5629b94f9892479e480a99582421
+  asked_by: local
+  isolation: none

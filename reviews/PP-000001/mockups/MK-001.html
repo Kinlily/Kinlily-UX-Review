@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>
+html,body{margin:0;width:402px;height:874px;overflow:hidden;background:#fff;font-family:-apple-system,"SF Pro Text",system-ui,sans-serif;color:#0F172A}
+*{box-sizing:border-box}
+.status{position:absolute;top:0;left:0;width:402px;height:54px}
+.status .t{position:absolute;left:50px;top:18px;font-weight:600;font-size:17px}
+.status .r{position:absolute;right:26px;top:23px;display:flex;gap:6px;align-items:center}
+.bat{width:27px;height:12px;border-radius:4px;background:#000}
+.nav{position:absolute;top:62px;left:0;width:402px;height:106px}
+.nav h1{position:absolute;left:16px;top:52px;margin:0;font-size:34px;font-weight:700;letter-spacing:-.4px}
+.nav .icons{position:absolute;right:16px;top:8px;display:flex;gap:18px}
+.ic{width:24px;height:24px;border:2px solid #5F7F6A;border-radius:50%}
+.bell{position:relative;border-radius:8px 8px 4px 4px}
+.bell:after{content:"";position:absolute;right:-5px;top:-5px;width:8px;height:8px;border-radius:50%;background:#C0574A}
+.feed{position:absolute;top:168px;left:0;width:402px;height:706px;overflow:hidden}
+.toast{margin:4px 16px 10px;padding:8px 12px;border-radius:10px;background:#EEF4F0;color:#5F7F6A;font-size:13px;font-weight:500;display:flex;gap:8px;align-items:center}
+.dot{width:8px;height:8px;border-radius:50%;background:#7A9D87}
+.head{display:flex;align-items:center;padding:6px 16px;gap:10px}
+.av{width:36px;height:36px;border-radius:50%;padding:2px;background:linear-gradient(135deg,#7A9D87,#E0A341,#D9784B)}
+.av i{display:block;width:100%;height:100%;border-radius:50%;border:2px solid #fff;background:#C9D9CE;font-style:normal;font-size:13px;font-weight:600;color:#5F7F6A;text-align:center;line-height:28px}
+.who{flex:1;font-size:14px;line-height:17px}
+.who b{font-weight:600}
+.who span{display:block;color:#64748B;font-size:12px}
+.more{font-size:20px;color:#475569;letter-spacing:1px}
+.photo{width:402px;height:300px;background:linear-gradient(160deg,#F6D9B8 0%,#E9B98F 35%,#A9C3B0 70%,#7A9D87 100%);position:relative}
+.photo:before{content:"";position:absolute;left:120px;top:70px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,#FFF4DF 0%,rgba(255,244,223,0) 70%)}
+.photo .n{position:absolute;right:12px;top:12px;background:rgba(15,23,42,.55);color:#fff;font-size:12px;padding:3px 8px;border-radius:12px}
+.acts{display:flex;align-items:center;padding:10px 16px 4px;gap:18px;font-size:14px;font-weight:600}
+.heart{width:22px;height:20px;position:relative}
+.heart:before,.heart:after{content:"";position:absolute;top:0;width:12px;height:19px;background:#C0574A;border-radius:12px 12px 0 0}
+.heart:before{left:10px;transform:rotate(-45deg);transform-origin:0 100%}
+.heart:after{left:0;transform:rotate(45deg);transform-origin:100% 100%}
+.bub{width:21px;height:19px;border:2px solid #0F172A;border-radius:50% 50% 50% 10%}
+.chip{margin-left:auto;font-size:12px;font-weight:500;color:#475569;border:1px solid #CBD5E1;border-radius:12px;padding:3px 9px}
+.txt{padding:2px 16px;font-size:14px;line-height:19px}
+.txt .tag{color:#5F7F6A;font-weight:600}
+.muted{padding:3px 16px;font-size:14px;color:#64748B}
+.cm{padding:1px 16px;font-size:14px;line-height:19px}
+.date{padding:4px 16px 12px;font-size:11px;color:#94A3B8;letter-spacing:.3px;text-transform:uppercase}
+.fab{position:absolute;left:324px;top:717px;width:56px;height:56px;border-radius:50%;background:#7A9D87;box-shadow:0 6px 16px rgba(15,23,42,.18);color:#fff;font-size:30px;text-align:center;line-height:54px}
+.tabs{position:absolute;left:21px;top:791px;width:360px;height:62px;border-radius:31px;background:rgba(255,255,255,.92);box-shadow:0 4px 20px rgba(15,23,42,.12);display:flex;justify-content:space-around;align-items:center}
+.tab{font-size:10px;color:#64748B;text-align:center}
+.tab div{width:22px;height:22px;margin:0 auto 3px;border-radius:6px;border:2px solid #94A3B8}
+.tab.on{color:#5F7F6A;font-weight:600}.tab.on div{border-color:#7A9D87;background:#7A9D87}
+</style></head><body>
+<div class="status"><div class="t">10:54</div><div class="r"><span style="font-size:11px">●●●</span><div class="bat"></div></div></div>
+<div class="nav"><div class="icons"><div class="ic bell"></div><div class="ic"></div></div><h1>Family feed</h1></div>
+<div class="feed">
+ <div class="toast"><span class="dot"></span>Posted · Anindith and Vani were notified</div>
+ <div class="head"><div class="av"><i>M</i></div><div class="who"><b>Manju</b> <span>with Anindith, Vani · Mysuru</span></div><div class="more">···</div></div>
+ <div class="photo"><span class="n">1/2</span></div>
+ <div class="acts"><div class="heart"></div>4<div class="bub"></div>2<span class="chip">🌐 All family</span></div>
+ <div class="txt"><b>Manju</b> Dasara lights with <span class="tag">@Anindith</span> and <span class="tag">@Vani</span> — the palace never gets old.</div>
+ <div class="muted">View all 2 comments</div>
+ <div class="cm"><b>Vani</b> Best evening of the year 💛</div>
+ <div class="date">Just now · Oct 12</div>
+ <div class="head"><div class="av"><i>K</i></div><div class="who"><b>Komala</b> <span>Yesterday</span></div><div class="more">···</div></div>
+ <div class="photo" style="background:linear-gradient(160deg,#DCE7DF,#A9C3B0)"></div>
+</div>
+<div class="fab">+</div>
+<div class="tabs"><div class="tab on"><div></div>Feed</div><div class="tab"><div></div>Stories</div><div class="tab"><div></div>Recipes</div><div class="tab"><div></div>Tree</div></div>
+</body></html>
