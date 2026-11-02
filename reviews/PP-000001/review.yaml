@@ -1,2 +1,13 @@
 schema_version: 1
 id: PP-000001
+title: ''
+status: open
+updated_at: '2026-11-02T05:15:13.610298Z'
+pull_request:
+  host: github.com
+  repo: kinlily/kinlily-ux-review
+  number: 2
+  url: https://github.com/kinlily/kinlily-ux-review/pull/2
+  branch: review/PP-000001
+  base: main
+  opened_at: '2026-11-02T05:15:13.610031Z'
