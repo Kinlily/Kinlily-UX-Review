@@ -52,5 +52,10 @@ comments:
   created_at: '2026-11-01T03:57:09.460040Z'
   body: in voice capsules tab, show existing voice capsules screen.
   mentions: []
-last_comment: 4
+- id: C-005
+  author: Manjunath Kodanda Reddy
+  created_at: '2026-11-02T02:55:58.983770Z'
+  body: Use branch TH-001-PR-002
+  mentions: []
+last_comment: 5
 design_regions: []
