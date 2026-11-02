@@ -1,0 +1,478 @@
+schema_version: 1
+id: TH-001
+review_id: PP-000001
+status: open
+created_at: '2026-11-02T03:54:34.892433Z'
+anchor:
+  state_index: 2
+  viewport_width: 402
+  viewport_height: 874
+  nodes:
+  - id: 0.0.1.0.0.0.0.0.0.0.0.0.0.0
+    type: navigation_bar
+    name: Family feed
+    text: null
+    bounds:
+      x: 0.0
+      y: 62.0
+      width: 402.0
+      height: 106.0
+    path:
+    - type: application
+      name: Kinlily
+    - type: window
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: navigation_bar
+      name: Family feed
+  - id: 0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0.0.2
+    type: other
+    name: null
+    text: null
+    bounds:
+      x: 0.0
+      y: 168.0
+      width: 402.0
+      height: 267.0
+    path:
+    - type: application
+      name: Kinlily
+    - type: window
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: scroll_view
+      name: null
+    - type: other
+      name: null
+  - id: 0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0.0.3
+    type: other
+    name: Vertical scroll bar, 1 page
+    text: Vertical scroll bar, 1 page
+    bounds:
+      x: 369.0
+      y: 116.0
+      width: 30.0
+      height: 675.0
+    path:
+    - type: application
+      name: Kinlily
+    - type: window
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: scroll_view
+      name: null
+    - type: other
+      name: Vertical scroll bar, 1 page
+  - id: 0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0.0.4
+    type: other
+    name: Vertical scroll bar, 1 page
+    text: Vertical scroll bar, 1 page
+    bounds:
+      x: 369.0
+      y: 116.0
+      width: 30.0
+      height: 675.0
+    path:
+    - type: application
+      name: Kinlily
+    - type: window
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: scroll_view
+      name: null
+    - type: other
+      name: Vertical scroll bar, 1 page
+  - id: 0.0.1.0.0.0.0.0.0.0.0.0.0.1.0.0.0.1
+    type: button
+    name: New post
+    text: New post
+    bounds:
+      x: 324.0
+      y: 717.0
+      width: 56.0
+      height: 56.0
+    path:
+    - type: application
+      name: Kinlily
+    - type: window
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: button
+      name: New post
+  - id: 0.0.1.0.0.0.0.1.0.0.0.0
+    type: other
+    name: null
+    text: null
+    bounds:
+      x: 21.0
+      y: 791.0
+      width: 360.0
+      height: 62.0
+    path:
+    - type: application
+      name: Kinlily
+    - type: window
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: tab_bar
+      name: Tab Bar
+    - type: other
+      name: null
+  - id: 0.0.1.0.0.0.0.1.0.0.0.1
+    type: other
+    name: null
+    text: null
+    bounds:
+      x: 326.0
+      y: 798.0
+      width: 48.0
+      height: 48.0
+    path:
+    - type: application
+      name: Kinlily
+    - type: window
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: tab_bar
+      name: Tab Bar
+    - type: other
+      name: null
+  - id: 0.0.2.0.0.0.0
+    type: navigation_bar
+    name: New post
+    text: null
+    bounds:
+      x: 0.0
+      y: 62.0
+      width: 402.0
+      height: 106.0
+    path:
+    - type: application
+      name: Kinlily
+    - type: window
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: navigation_bar
+      name: New post
+  - id: 0.0.2.0.0.0.1.0.0.0.0.2
+    type: other
+    name: null
+    text: null
+    bounds:
+      x: 0.0
+      y: 168.0
+      width: 402.0
+      height: 470.0
+    path:
+    - type: application
+      name: Kinlily
+    - type: window
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: scroll_view
+      name: null
+    - type: other
+      name: null
+  - id: 0.0.2.0.0.0.1.0.0.0.0.3
+    type: other
+    name: Vertical scroll bar, 1 page
+    text: Vertical scroll bar, 1 page
+    bounds:
+      x: 369.0
+      y: 116.0
+      width: 30.0
+      height: 696.0
+    path:
+    - type: application
+      name: Kinlily
+    - type: window
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: scroll_view
+      name: null
+    - type: other
+      name: Vertical scroll bar, 1 page
+  - id: 0.0.2.0.0.0.1.0.0.0.0.4
+    type: other
+    name: Vertical scroll bar, 1 page
+    text: Vertical scroll bar, 1 page
+    bounds:
+      x: 369.0
+      y: 116.0
+      width: 30.0
+      height: 696.0
+    path:
+    - type: application
+      name: Kinlily
+    - type: window
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: scroll_view
+      name: null
+    - type: other
+      name: Vertical scroll bar, 1 page
+  - id: 0.0.2.0.0.1
+    type: button
+    name: mic.fill
+    text: Record
+    bounds:
+      x: 175.0
+      y: 773.0
+      width: 52.0
+      height: 52.0
+    path:
+    - type: application
+      name: Kinlily
+    - type: window
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: other
+      name: null
+    - type: button
+      name: mic.fill
+  region:
+    x: 4.0
+    y: 63.0
+    width: 395.0
+    height: 792.0
+  url: ios://home
+  screen:
+    kind: ios
+    app: com.kinlily.app
+    screen: null
+    title: null
+comments:
+- id: C-001
+  author: Manjunath Kodanda Reddy
+  created_at: '2026-11-02T03:54:34.892433Z'
+  body: Clicking Savr should post as family feed. this is like Instagram feed. Ofher
+    hould get notifications, based on who's in this entry. This should involve, likes
+    comments and date of post, do same like instagram. clicking post should open post
+    details with option to reply for comments, edit or delete post. in post comments
+    tagging should be allowed. so this is like full fledgeed social media feed. BUT
+    FOR FMAILY.
+  mentions: []
+last_comment: 1
+design_regions: []

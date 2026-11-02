@@ -1,0 +1,18 @@
+{
+  "kind": "ios",
+  "url": "ios://home",
+  "viewport_width": 402,
+  "viewport_height": 874,
+  "user_agent": null,
+  "scroll_x": 0.0,
+  "scroll_y": 0.0,
+  "device": "iPhone 17",
+  "os_version": "27.0",
+  "scale": 3.0,
+  "screen": {
+    "kind": "ios",
+    "app": "com.kinlily.app",
+    "screen": null,
+    "title": null
+  }
+}
