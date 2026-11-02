@@ -10,3 +10,12 @@ decisions:
   branch: null
   commit: null
   verified_at: null
+- id: D-002
+  outcome: withdrawn
+  by: local
+  at: '2026-11-02T03:40:40.174077Z'
+  note: null
+  proposal_id: null
+  branch: null
+  commit: null
+  verified_at: null
