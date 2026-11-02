@@ -2,7 +2,7 @@ schema_version: 1
 id: MK-002
 review_id: PP-000001
 thread_id: TH-001
-status: pending
+status: changes_requested
 created_at: '2026-11-02T03:59:14.567517Z'
 agent: claude-code
 on_behalf_of: local
@@ -16,7 +16,12 @@ width: 1206
 height: 2622
 base_state_index: 2
 replaces: MK-001
-decision: null
+decision:
+  outcome: changes_requested
+  by: Manjunath Kodanda Reddy
+  at: '2026-11-02T04:01:50.736535Z'
+  note: the current bottom bar has feed, journal, tree and search, so keep this intact
+    and dont change bottom bar
 run:
   started_at: '2026-11-02T03:57:44.742194Z'
   duration_seconds: 89.8
