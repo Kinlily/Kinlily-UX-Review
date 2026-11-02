@@ -1,0 +1,45 @@
+schema_version: 1
+id: PR-001
+review_id: PP-000001
+thread_id: TH-001
+status: applied
+created_at: '2026-11-02T04:09:49.455244Z'
+agent: claude-code
+on_behalf_of: local
+rationale: "Each post in the feed is now a card: face, name and \"with Vani and Anindith\"\
+  , a \u2022\u2022\u2022 menu, the photo full width, the words, likes and comments\
+  \ with the date on the right, and \"Liked by Vani and 3 others \xB7 View 2 comments\"\
+  .\nAfter you post, a line at the top says who was notified."
+diff_file: reviews/PP-000001/proposals/PR-001.diff
+files:
+- iosApp/iosApp/Feed/FeedAgeLabel.swift
+- iosApp/iosApp/Feed/FeedThreadRow.swift
+- iosApp/iosApp/Feed/FeedView.swift
+- iosApp/iosApp/Today/NewEntryView.swift
+- iosApp/iosApp/Today/NewEntryViewModelIOS.swift
+- sharedLogic/src/commonMain/kotlin/com/nodeda/cookbook/shared/feed/Feed.kt
+- sharedLogic/src/commonMain/kotlin/com/nodeda/cookbook/shared/posts/PostGateway.kt
+- sharedLogic/src/commonMain/kotlin/com/nodeda/cookbook/shared/presentation/newentry/NewEntryContract.kt
+- sharedLogic/src/commonMain/kotlin/com/nodeda/cookbook/shared/strings/FeedStrings.kt
+- sharedLogic/src/commonTest/kotlin/com/nodeda/cookbook/shared/feed/FeedBuilderTest.kt
+additions: 451
+deletions: 96
+decision:
+  outcome: approved
+  by: Manjunath Kodanda Reddy
+  at: '2026-11-02T04:09:50.005196Z'
+  note: null
+applied:
+  branch: nrovaflow/TH-001-PR-001
+  commit: d59e30a9595cef9d964d85cbe791d3b4125cae79
+  base_commit: 05f6c126ca2f5629b94f9892479e480a99582421
+  at: '2026-11-02T04:09:50.005142Z'
+verification: null
+run:
+  started_at: '2026-11-02T04:03:57.914626Z'
+  duration_seconds: 351.5
+  base_commit: 05f6c126ca2f5629b94f9892479e480a99582421
+  asked_by: local
+  isolation: none
+replaces: null
+mockup_id: MK-003

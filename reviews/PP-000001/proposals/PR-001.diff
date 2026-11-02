@@ -1,0 +1,892 @@
+diff --git a/iosApp/iosApp/Feed/FeedAgeLabel.swift b/iosApp/iosApp/Feed/FeedAgeLabel.swift
+index 2327512..3f62729 100644
+--- a/iosApp/iosApp/Feed/FeedAgeLabel.swift
++++ b/iosApp/iosApp/Feed/FeedAgeLabel.swift
+@@ -1,6 +1,50 @@
+ import Foundation
+ import SharedLogic
+ 
++/// "Today · 10:52 AM" / "Yesterday · 8:05 PM" / "12 Oct · 9:30 AM" — the
++/// date of a post on its card. The day word comes from the system's own
++/// relative formatting, so it reads in the person's language. A date with no
++/// time ("2026-10-12") shows the day alone.
++@MainActor
++func feedDateTimeLabel(_ createdAt: String, locale: LocaleStore) -> String {
++    let lang = Locale(identifier: locale.language)
++    let iso = ISO8601DateFormatter()
++    iso.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
++    var date = iso.date(from: createdAt)
++    if date == nil {
++        iso.formatOptions = [.withInternetDateTime]
++        date = iso.date(from: createdAt)
++    }
++    var hasTime = true
++    if date == nil {
++        iso.formatOptions = [.withFullDate]
++        date = iso.date(from: String(createdAt.prefix(10)))
++        hasTime = false
++    }
++    guard let date else { return feedAgeLabel(createdAt, locale: locale) }
++
++    let day = DateFormatter()
++    day.locale = lang
++    day.dateStyle = .medium
++    day.timeStyle = .none
++    day.doesRelativeDateFormatting = true
++    var dayText = day.string(from: date)
++    // Older than yesterday: a short "12 Oct", not the medium "12 Oct 2026".
++    if !Calendar.current.isDateInToday(date) && !Calendar.current.isDateInYesterday(date) {
++        let short = DateFormatter()
++        short.locale = lang
++        let sameYear = Calendar.current.isDate(date, equalTo: Date(), toGranularity: .year)
++        short.setLocalizedDateFormatFromTemplate(sameYear ? "dMMM" : "dMMMy")
++        dayText = short.string(from: date)
++    }
++    guard hasTime else { return dayText }
++    let time = DateFormatter()
++    time.locale = lang
++    time.dateStyle = .none
++    time.timeStyle = .short
++    return "\(dayText) · \(time.string(from: date))"
++}
++
+ /// "2h" / "3d" / a short date — the same buckets on every post.
+ @MainActor
+ func feedAgeLabel(_ createdAt: String, locale: LocaleStore) -> String {
+diff --git a/iosApp/iosApp/Feed/FeedThreadRow.swift b/iosApp/iosApp/Feed/FeedThreadRow.swift
+index ca03302..6df1e51 100644
+--- a/iosApp/iosApp/Feed/FeedThreadRow.swift
++++ b/iosApp/iosApp/Feed/FeedThreadRow.swift
+@@ -1,14 +1,15 @@
+ import SwiftUI
+ import SharedLogic
+ 
+-/// One post in the family feed, laid out the way Threads lays one out: face,
+-/// name and time on one line, the words, then a heart, a reply and a share.
+-/// Replies hang off a short line under the face.
++/// One post in the family feed, laid out like an Instagram post: a card with
++/// the face, name and who is in it, a ••• menu, the photo full width, the
++/// words, then the heart and comment counts with the date on the right, and a
++/// "Liked by … · View N comments" line under them. Tapping opens the thread.
+ struct FeedThreadRow: View {
+     let post: FeedPost
+     let summary: PostSummary?
+-    let replyName: String?
+-    let replyPhoto: String?
++    /// Name of one person who liked it ("Liked by Vani and 3 others"), if known.
++    let likerName: String?
+     @ObservedObject var locale: LocaleStore
+     let onOpen: () -> Void
+     let onLike: () -> Void
+@@ -21,54 +22,96 @@ struct FeedThreadRow: View {
+     private var comments: Int { Int(summary?.commentCount ?? 0) }
+ 
+     var body: some View {
+-        VStack(alignment: .leading, spacing: 8) {
+-            ThreadRail(name: post.authorName, photo: post.authorPhotoUrl, showLine: comments > 0) {
+-                VStack(alignment: .leading, spacing: 8) {
+-                    header
+-                    if !post.body.isEmpty {
+-                        Text(post.body)
+-                            .font(.kBody)
+-                            .foregroundColor(.ink)
+-                            .lineLimit(8)
+-                            .fixedSize(horizontal: false, vertical: true)
+-                            .onTapGesture { onOpen() }
+-                    }
+-                    media
+-                    actions
+-                }
++        VStack(alignment: .leading, spacing: 10) {
++            header
++            media
++            if !post.body.isEmpty {
++                Text(post.body)
++                    .font(.kBody)
++                    .foregroundColor(.ink)
++                    .lineLimit(8)
++                    .fixedSize(horizontal: false, vertical: true)
++                    .onTapGesture { onOpen() }
+             }
+-            if comments > 0 { replies }
++            actions
++            if likes > 0 || comments > 0 { socialLine }
+         }
+-        .padding(.vertical, 12)
++        .padding(12)
++        .background(Color.kSurface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
++        .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(Color.hairline, lineWidth: 1))
++        .padding(.bottom, 12)
+     }
+ 
+     private var header: some View {
+-        HStack(alignment: .firstTextBaseline, spacing: 6) {
+-            Text(post.authorName)
+-                .font(.kTitleXS)
+-                .foregroundColor(.ink)
+-                .lineLimit(1)
+-            if post.target == FeedTarget.recipe {
+-                Text(locale.tr(post.kindLabelKey))
+-                    .font(.kCaption)
+-                    .foregroundColor(.sageDeep)
++        HStack(spacing: 10) {
++            KinlilyAvatar(name: post.authorName, url: post.authorPhotoUrl, size: 36, ring: false)
++            VStack(alignment: .leading, spacing: 1) {
++                Text(post.authorName)
++                    .font(.kTitleXS)
++                    .foregroundColor(.ink)
++                    .lineLimit(1)
++                if let sub = subtitle {
++                    Text(sub)
++                        .font(.kCaption)
++                        .foregroundColor(.ink2)
++                        .lineLimit(1)
++                }
+             }
+             Spacer(minLength: 8)
+-            Text(feedAgeLabel(post.createdAt, locale: locale))
+-                .font(.kCaption)
+-                .foregroundColor(.ink3)
+-                .lineLimit(1)
++            Menu {
++                Button(locale.tr(PostKeys.shared.COMMENT), action: onOpen)
++                Button(locale.tr(FeedKeys.shared.FEED_SHARE), action: onShare)
++            } label: {
++                Image(systemName: "ellipsis")
++                    .font(.system(size: 17, weight: .semibold))
++                    .foregroundColor(.ink3)
++                    .frame(width: 44, height: 36)
++                    .contentShape(Rectangle())
++            }
++            .accessibilityLabel(locale.tr(FeedKeys.shared.FEED_MORE))
+         }
+         .contentShape(Rectangle())
+         .onTapGesture { onOpen() }
+     }
+ 
++    /// "with Vani and Anindith" — or the kind of post, for a recipe.
++    private var subtitle: String? {
++        let names = post.taggedNames
++        if !names.isEmpty {
++            let joined = FeedKt.joinNames(names: names, and: locale.tr(FeedKeys.shared.FEED_AND))
++            return locale.tr(FeedKeys.shared.FEED_WITH).replacingOccurrences(of: "{names}", with: joined)
++        }
++        if post.target == FeedTarget.recipe { return locale.tr(post.kindLabelKey) }
++        return nil
++    }
++
+     @ViewBuilder private var media: some View {
+-        if let urls = post.photoUrls as? [String], !urls.isEmpty {
+-            PostPhotoGrid(urls: urls, total: Int(post.photoCount), locale: locale)
++        if let urls = post.photoUrls as? [String], let first = urls.first {
++            Color.kSurface2
++                .frame(maxWidth: .infinity)
++                .frame(height: 200)
++                .overlay {
++                    AsyncImage(url: URL(string: first)) { image in
++                        image.resizable().scaledToFill()
++                    } placeholder: { Color.clear }
++                }
++                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
++                .overlay(alignment: .topTrailing) {
++                    let more = Int(post.photoCount) - 1
++                    if more > 0 {
++                        Text(verbatim: "+\(more)")
++                            .font(.kCaption.weight(.semibold))
++                            .foregroundColor(.white)
++                            .padding(.horizontal, 8).padding(.vertical, 3)
++                            .background(Color.black.opacity(0.45), in: Capsule())
++                            .padding(8)
++                    }
++                }
++                .contentShape(Rectangle())
++                .onTapGesture { onOpen() }
+         }
+         if let url = post.videoUrl, !url.isEmpty {
+-            KinlilyVideoPlayer(url: url, height: 200, corner: 16)
++            KinlilyVideoPlayer(url: url, height: 200, corner: 12)
+         }
+         if let url = post.audioUrl, !url.isEmpty {
+             VoicePlayButton(url: url, label: locale.tr(PostKeys.shared.TITLE_VOICE)) {
+@@ -78,7 +121,7 @@ struct FeedThreadRow: View {
+     }
+ 
+     private var actions: some View {
+-        HStack(spacing: 22) {
++        HStack(spacing: 16) {
+             Button {
+                 onLike()
+                 if !liked {
+@@ -87,11 +130,11 @@ struct FeedThreadRow: View {
+                 }
+             } label: {
+                 HStack(spacing: 5) {
+-                    KinlilySymbol(name: "favorite", size: 20, color: liked ? .kDanger : .ink3)
++                    KinlilySymbol(name: "favorite", size: 20, color: liked ? .kDanger : .ink2)
+                         .scaleEffect(heartBig ? 1.28 : 1)
+                         .animation(.spring(response: 0.28, dampingFraction: 0.42), value: heartBig)
+                     if likes > 0 {
+-                        Text(verbatim: "\(likes)").font(.kBodyS).foregroundColor(liked ? .kDanger : .ink3)
++                        Text(verbatim: "\(likes)").font(.kBodyS).foregroundColor(.ink2)
+                     }
+                 }
+             }
+@@ -100,50 +143,67 @@ struct FeedThreadRow: View {
+ 
+             Button(action: onOpen) {
+                 HStack(spacing: 5) {
+-                    KinlilySymbol(name: "chat", size: 20, color: .ink3)
++                    KinlilySymbol(name: "chat", size: 20, color: .ink2)
+                     if comments > 0 {
+-                        Text(verbatim: "\(comments)").font(.kBodyS).foregroundColor(.ink3)
++                        Text(verbatim: "\(comments)").font(.kBodyS).foregroundColor(.ink2)
+                     }
+                 }
+             }
+             .buttonStyle(.plain)
+             .accessibilityLabel(locale.tr(PostKeys.shared.COMMENT))
+ 
+-            Button(action: onShare) {
+-                KinlilySymbol(name: "share", size: 20, color: .ink3)
+-            }
+-            .buttonStyle(.plain)
+-            .accessibilityLabel(locale.tr(FeedKeys.shared.FEED_SHARE))
++            Spacer(minLength: 8)
+ 
+-            Spacer(minLength: 0)
++            Text(feedDateTimeLabel(post.createdAt, locale: locale))
++                .font(.kCaption)
++                .foregroundColor(.ink3)
++                .lineLimit(1)
+         }
+-        .padding(.top, 2)
+     }
+ 
+-    private var replies: some View {
++    /// "Liked by **Vani** and 3 others · View 2 comments".
++    private var socialLine: some View {
+         Button(action: onOpen) {
+-            HStack(alignment: .top, spacing: 12) {
+-                KinlilyAvatar(name: replyName, url: replyPhoto, size: 22, ring: false)
+-                    .frame(width: 40)
+-                VStack(alignment: .leading, spacing: 2) {
+-                    if let text = summary?.lastCommentText, !text.isEmpty {
+-                        (Text(verbatim: (replyName?.isEmpty == false ? (replyName! + " ") : ""))
+-                            .fontWeight(.semibold)
+-                         + Text(verbatim: text))
+-                            .font(.kBodyS)
+-                            .foregroundColor(.ink2)
+-                            .lineLimit(2)
+-                            .multilineTextAlignment(.leading)
+-                    }
+-                    Text(comments == 1
+-                         ? locale.tr(FeedKeys.shared.FEED_REPLY_ONE)
+-                         : locale.tr(FeedKeys.shared.FEED_REPLIES).replacingOccurrences(of: "{n}", with: "\(comments)"))
+-                        .font(.kCaption)
+-                        .foregroundColor(.ink3)
+-                }
+-                Spacer(minLength: 0)
+-            }
++            (likedText + separator + commentsText)
++                .font(.kCaption)
++                .foregroundColor(.ink2)
++                .lineLimit(2)
++                .multilineTextAlignment(.leading)
++                .frame(maxWidth: .infinity, alignment: .leading)
+         }
+         .buttonStyle(.plain)
+     }
++
++    private var likedText: Text {
++        guard likes > 0 else { return Text(verbatim: "") }
++        if let name = likerName, !name.isEmpty {
++            let key: String
++            switch likes {
++            case 1: key = FeedKeys.shared.FEED_LIKED_BY
++            case 2: key = FeedKeys.shared.FEED_LIKED_BY_ONE_OTHER
++            default: key = FeedKeys.shared.FEED_LIKED_BY_OTHERS
++            }
++            let template = locale.tr(key).replacingOccurrences(of: "{n}", with: "\(likes - 1)")
++            let parts = template.components(separatedBy: "{name}")
++            guard parts.count == 2 else { return Text(verbatim: template.replacingOccurrences(of: "{name}", with: name)) }
++            return Text(verbatim: parts[0])
++                + Text(verbatim: name).fontWeight(.semibold).foregroundColor(.ink)
++                + Text(verbatim: parts[1])
++        }
++        let count = likes == 1
++            ? locale.tr(FeedKeys.shared.FEED_LIKE_ONE)
++            : locale.tr(FeedKeys.shared.FEED_LIKES).replacingOccurrences(of: "{n}", with: "\(likes)")
++        return Text(verbatim: count)
++    }
++
++    private var separator: Text {
++        likes > 0 && comments > 0 ? Text(verbatim: " · ") : Text(verbatim: "")
++    }
++
++    private var commentsText: Text {
++        guard comments > 0 else { return Text(verbatim: "") }
++        return Text(verbatim: comments == 1
++                    ? locale.tr(FeedKeys.shared.FEED_VIEW_COMMENT)
++                    : locale.tr(FeedKeys.shared.FEED_VIEW_COMMENTS).replacingOccurrences(of: "{n}", with: "\(comments)"))
++    }
+ }
+diff --git a/iosApp/iosApp/Feed/FeedView.swift b/iosApp/iosApp/Feed/FeedView.swift
+index 520c1d2..d96c1f0 100644
+--- a/iosApp/iosApp/Feed/FeedView.swift
++++ b/iosApp/iosApp/Feed/FeedView.swift
+@@ -16,11 +16,21 @@ struct FeedView: View {
+     @State private var showPersonId: String?
+     @State private var showFamily = false
+     @State private var shareItem: IdentifiedString?
++    /// Set right after posting: who was tagged (and so notified). Clears itself.
++    @State private var postedNames: [String]?
+ 
+     var body: some View {
+         base
+             .modifier(FeedNavigation(vm: vm, locale: locale, showNotifications: $showNotifications, showMe: $showMe))
+-            .modifier(FeedCovers(vm: vm, showNewEntry: $showNewEntry, showStoryId: $showStoryId, showRecipeId: $showRecipeId, showPersonId: $showPersonId, showFamily: $showFamily))
++            .modifier(FeedCovers(vm: vm, showNewEntry: $showNewEntry, showStoryId: $showStoryId, showRecipeId: $showRecipeId, showPersonId: $showPersonId, showFamily: $showFamily,
++                                 onPosted: { names in posted(names) }))
++    }
++
++    private func posted(_ names: [String]) {
++        withAnimation(.easeOut(duration: 0.25)) { postedNames = names }
++        DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
++            withAnimation(.easeIn(duration: 0.25)) { postedNames = nil }
++        }
+     }
+ 
+     private var base: some View {
+@@ -53,7 +63,10 @@ struct FeedView: View {
+         ) {
+             // Scaffold owns the ScrollView (native large title). Content only here.
+             LazyVStack(alignment: .leading, spacing: 0) {
+-                    composer
++                    if let names = postedNames {
++                        postedLine(names)
++                            .transition(.opacity.combined(with: .move(edge: .top)))
++                    }
+                     if vm.state.isLoading && vm.state.posts.isEmpty {
+                         HStack { Spacer(); ProgressView().tint(.sage); Spacer() }
+                             .padding(48)
+@@ -69,12 +82,10 @@ struct FeedView: View {
+                     } else {
+                         ForEach(vm.state.posts, id: \.id) { post in
+                             let summary = post.postRef.flatMap { vm.state.summaries[$0.key] as? PostSummary }
+-                            let face = replyFace(summary)
+                             FeedThreadRow(
+                                 post: post,
+                                 summary: summary,
+-                                replyName: face?.name,
+-                                replyPhoto: face?.photoUrl,
++                                likerName: likerName(summary),
+                                 locale: locale,
+                                 onOpen: { vm.open(post) },
+                                 onLike: { if let ref = post.postRef { vm.toggleLike(ref) } },
+@@ -83,7 +94,8 @@ struct FeedView: View {
+                         }
+                     }
+             }
+-            .padding(.horizontal, 12)
++            .padding(.horizontal, 16)
++            .padding(.top, 4)
+             .padding(.bottom, 96)
+         }
+         .refreshable { vm.refresh() }
+@@ -102,25 +114,41 @@ struct FeedView: View {
+         .sheet(item: $shareItem) { item in KinlilyShareSheet(items: [item.id]) }
+     }
+ 
+-    /// The Threads prompt: your face, and a tap that opens a post.
+-    private var composer: some View {
+-        Button { showNewEntry = true } label: {
+-            HStack(spacing: 12) {
+-                KinlilyAvatar(name: vm.state.displayName, url: vm.state.avatarUrl, size: 40, ring: false)
+-                Text(locale.tr(FeedKeys.shared.FEED_WHATS_NEW))
+-                    .font(.kBody)
+-                    .foregroundColor(.ink3)
+-                Spacer(minLength: 0)
++    /// "✓ Posted · **Vani, Anindith** were notified" — just after posting.
++    private func postedLine(_ names: [String]) -> some View {
++        let posted = locale.tr(FeedKeys.shared.FEED_POSTED)
++        var line = Text(verbatim: posted)
++        if !names.isEmpty {
++            let template = locale.tr(FeedKeys.shared.FEED_NOTIFIED)
++            let parts = template.components(separatedBy: "{names}")
++            let joined = names.joined(separator: ", ")
++            line = line + Text(verbatim: " · ")
++            if parts.count == 2 {
++                line = line + Text(verbatim: parts[0])
++                    + Text(verbatim: joined).fontWeight(.semibold).foregroundColor(.sageDeep)
++                    + Text(verbatim: parts[1])
++            } else {
++                line = line + Text(verbatim: template.replacingOccurrences(of: "{names}", with: joined))
+             }
+-            .padding(.vertical, 14)
+-            .contentShape(Rectangle())
+         }
+-        .buttonStyle(.plain)
++        return HStack(spacing: 8) {
++            Image(systemName: "checkmark.circle.fill")
++                .font(.system(size: 16))
++                .foregroundStyle(Color.white, Color.sage)
++            line
++                .font(.kBodyS)
++                .foregroundColor(.ink2)
++                .lineLimit(2)
++            Spacer(minLength: 0)
++        }
++        .padding(.horizontal, 2)
++        .padding(.bottom, 10)
++        .accessibilityElement(children: .combine)
+     }
+ 
+-    private func replyFace(_ summary: PostSummary?) -> FeedFace? {
+-        guard let uid = summary?.lastCommentAuthorUid, !uid.isEmpty else { return nil }
+-        return vm.state.faces[uid] as? FeedFace
++    private func likerName(_ summary: PostSummary?) -> String? {
++        guard let uid = summary?.firstLikerUid, !uid.isEmpty else { return nil }
++        return (vm.state.faces[uid] as? FeedFace)?.name
+     }
+ 
+     private func share(_ post: FeedPost) {
+@@ -181,11 +209,12 @@ private struct FeedCovers: ViewModifier {
+     @Binding var showRecipeId: String?
+     @Binding var showPersonId: String?
+     @Binding var showFamily: Bool
++    var onPosted: ([String]) -> Void = { _ in }
+ 
+     func body(content: Content) -> some View {
+         content
+             .kinlilyFullScreenCover(isPresented: $showNewEntry) {
+-                NewEntryView(onClose: { showNewEntry = false; vm.refresh() }, asFeedPost: true)
++                NewEntryView(onClose: { showNewEntry = false; vm.refresh() }, asFeedPost: true, onPosted: onPosted)
+             }
+             .modifier(FeedTargetCovers(showStoryId: $showStoryId, showRecipeId: $showRecipeId,
+                                        showPersonId: $showPersonId, showFamily: $showFamily))
+diff --git a/iosApp/iosApp/Today/NewEntryView.swift b/iosApp/iosApp/Today/NewEntryView.swift
+index 0eb6b7d..2115b6b 100644
+--- a/iosApp/iosApp/Today/NewEntryView.swift
++++ b/iosApp/iosApp/Today/NewEntryView.swift
+@@ -19,6 +19,9 @@ struct NewEntryView: View {
+     var initialImages: [Data] = []
+     /// Opened from the family Feed — a social post to the family, not a journal.
+     var asFeedPost: Bool = false
++    /// Called once the post is saved, with the names of the people it tags,
++    /// just before `onClose` (the Feed shows "Posted · … were notified").
++    var onPosted: (([String]) -> Void)? = nil
+ 
+     @StateObject private var locale = LocaleStore()
+     @StateObject private var vm: NewEntryViewModelIOS
+@@ -29,7 +32,8 @@ struct NewEntryView: View {
+         initialText: String? = nil,
+         autoRecord: Bool = false,
+         initialImages: [Data] = [],
+-        asFeedPost: Bool = false
++        asFeedPost: Bool = false,
++        onPosted: (([String]) -> Void)? = nil
+     ) {
+         self.onClose = onClose
+         self.isPushed = isPushed
+@@ -37,6 +41,7 @@ struct NewEntryView: View {
+         self.autoRecord = autoRecord
+         self.initialImages = initialImages
+         self.asFeedPost = asFeedPost
++        self.onPosted = onPosted
+         _vm = StateObject(wrappedValue: NewEntryViewModelIOS(asFeedPost: asFeedPost))
+     }
+     @State private var micDenied = false
+@@ -78,7 +83,11 @@ struct NewEntryView: View {
+                 }
+             }
+         }
+-        .onChange(of: vm.saved) { _, done in if done { onClose() } }
++        .onChange(of: vm.saved) { _, done in
++            guard done else { return }
++            onPosted?(vm.taggedNames)
++            onClose()
++        }
+         .kinlilyFullScreenCover(isPresented: $showPicker) {
+             FamilyPickerView(
+                 people: vm.state.people,
+diff --git a/iosApp/iosApp/Today/NewEntryViewModelIOS.swift b/iosApp/iosApp/Today/NewEntryViewModelIOS.swift
+index 96d803e..93c8dda 100644
+--- a/iosApp/iosApp/Today/NewEntryViewModelIOS.swift
++++ b/iosApp/iosApp/Today/NewEntryViewModelIOS.swift
+@@ -36,6 +36,9 @@ final class NewEntryViewModelIOS: ObservableObject {
+         shared.onCleared()
+     }
+ 
++    /// Names of the people this post tags (picked + the chosen group's).
++    var taggedNames: [String] { NewEntryContractKt.taggedNames(state) }
++
+     var canSave: Bool { !state.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && !state.isSaving }
+ 
+     func textChanged(_ v: String) { shared.setEvent(event: NewEntryContractEventOnTextChanged(value: v)) }
+diff --git a/sharedLogic/src/commonMain/kotlin/com/nodeda/cookbook/shared/feed/Feed.kt b/sharedLogic/src/commonMain/kotlin/com/nodeda/cookbook/shared/feed/Feed.kt
+index cc6c40f..d8cb0a6 100644
+--- a/sharedLogic/src/commonMain/kotlin/com/nodeda/cookbook/shared/feed/Feed.kt
++++ b/sharedLogic/src/commonMain/kotlin/com/nodeda/cookbook/shared/feed/Feed.kt
+@@ -38,8 +38,20 @@ data class FeedPost(
+     val kindLabelKey: String,
+     /** True when someone else put you in it. */
+     val isShared: Boolean = false,
++    /** Who is in the post besides its author ("with Vani and Anindith"). */
++    val taggedNames: List<String> = emptyList(),
+ )
+ 
++/**
++ * "Vani", "Vani and Anindith", "Vani, Anindith and Komala" — [and] is the
++ * localized "{a} and {b}" pattern, so every language joins names its own way.
++ */
++fun joinNames(names: List<String>, and: String): String = when (names.size) {
++    0 -> ""
++    1 -> names[0]
++    else -> and.replace("{a}", names.dropLast(1).joinToString(", ")).replace("{b}", names.last())
++}
++
+ /**
+  * Weave journals (yours + shared-with-you) and stories about you into one
+  * newest-first feed. Recipes stay on the Recipes tab — they are not auto-
+@@ -75,6 +87,14 @@ fun buildFeedPosts(
+             ?: people.firstOrNull { it.claimedByUid == uid }?.profilePicUrl
+     }
+ 
++    /** The people tagged on an entry, by name, never its author. */
++    fun taggedNames(e: JournalEntry, authorUid: String?): List<String> =
++        e.linkedPersonIds.distinct().mapNotNull { id ->
++            val p = byId[id] ?: return@mapNotNull null
++            if (id == authorUid || (authorUid != null && p.claimedByUid == authorUid)) return@mapNotNull null
++            p.displayName.takeIf { it.isNotBlank() }
++        }
++
+     myEntries.forEach { e ->
+         val text = e.text.trim()
+         if (!e.hasSomethingToPost()) return@forEach
+@@ -93,6 +113,7 @@ fun buildFeedPosts(
+             createdAt = e.createdAt,
+             kindLabelKey = kindJournal,
+             isShared = false,
++            taggedNames = taggedNames(e, myUid),
+         )
+     }
+     sharedEntries.forEach { e ->
+@@ -114,6 +135,7 @@ fun buildFeedPosts(
+             createdAt = e.createdAt,
+             kindLabelKey = kindJournal,
+             isShared = true,
++            taggedNames = taggedNames(e, author),
+         )
+     }
+     stories.forEach { s ->
+diff --git a/sharedLogic/src/commonMain/kotlin/com/nodeda/cookbook/shared/posts/PostGateway.kt b/sharedLogic/src/commonMain/kotlin/com/nodeda/cookbook/shared/posts/PostGateway.kt
+index 679e658..9750051 100644
+--- a/sharedLogic/src/commonMain/kotlin/com/nodeda/cookbook/shared/posts/PostGateway.kt
++++ b/sharedLogic/src/commonMain/kotlin/com/nodeda/cookbook/shared/posts/PostGateway.kt
+@@ -56,6 +56,9 @@ data class PostSummary(
+     val commentCount: Int = 0,
+     val lastCommentAuthorUid: String? = null,
+     val lastCommentText: String? = null,
++    /** One person who liked it, for "Liked by Vani and 3 others". Null when
++     *  the server does not say (an older backend) — the card shows a count. */
++    val firstLikerUid: String? = null,
+ )
+ 
+ interface PostGateway {
+@@ -112,6 +115,7 @@ private data class SummaryDto(
+     val comment_count: Int = 0,
+     val last_comment_author_uid: String? = null,
+     val last_comment_text: String? = null,
++    val liker_uids: List<String> = emptyList(),
+ )
+ 
+ @Serializable
+@@ -138,6 +142,7 @@ class KtorPostGateway(private val client: HttpClient) : PostGateway {
+             val ref = PostRef(type, d.target_id)
+             ref.key to PostSummary(
+                 ref, d.like_count, d.liked_by_me, d.comment_count, d.last_comment_author_uid, d.last_comment_text,
++                d.liker_uids.firstOrNull(),
+             )
+         }.toMap()
+     }
+diff --git a/sharedLogic/src/commonMain/kotlin/com/nodeda/cookbook/shared/presentation/newentry/NewEntryContract.kt b/sharedLogic/src/commonMain/kotlin/com/nodeda/cookbook/shared/presentation/newentry/NewEntryContract.kt
+index 6f891a2..fcf7bf1 100644
+--- a/sharedLogic/src/commonMain/kotlin/com/nodeda/cookbook/shared/presentation/newentry/NewEntryContract.kt
++++ b/sharedLogic/src/commonMain/kotlin/com/nodeda/cookbook/shared/presentation/newentry/NewEntryContract.kt
+@@ -99,3 +99,14 @@ object NewEntryContract {
+ 
+ val NewEntryContract.State.canSave: Boolean
+     get() = text.isNotBlank() && !isSaving
++
++/**
++ * Who this post tags — the people picked plus the chosen group's — by name.
++ * The Feed says "Posted · Vani, Anindith were notified" with it after saving.
++ */
++val NewEntryContract.State.taggedNames: List<String>
++    get() {
++        val groupIds = groups.firstOrNull { it.id == selectedGroupId }?.personIds.orEmpty()
++        val ids = selectedPersonIds + groupIds
++        return people.filter { it.id in ids }.map { it.displayName }.filter { it.isNotBlank() }.distinct()
++    }
+diff --git a/sharedLogic/src/commonMain/kotlin/com/nodeda/cookbook/shared/strings/FeedStrings.kt b/sharedLogic/src/commonMain/kotlin/com/nodeda/cookbook/shared/strings/FeedStrings.kt
+index 5d8dde2..4949e4c 100644
+--- a/sharedLogic/src/commonMain/kotlin/com/nodeda/cookbook/shared/strings/FeedStrings.kt
++++ b/sharedLogic/src/commonMain/kotlin/com/nodeda/cookbook/shared/strings/FeedStrings.kt
+@@ -22,6 +22,21 @@ object FeedKeys {
+     const val FEED_REPLIES = "feed.replies"
+     const val FEED_SHARE = "feed.share"
+     const val FEED_OPEN_RECIPE = "feed.open_recipe"
++    /** Post card (Instagram-style): "with Vani and Anindith". */
++    const val FEED_WITH = "feed.with"
++    /** "{a} and {b}" — how a list of names ends. */
++    const val FEED_AND = "feed.and"
++    const val FEED_LIKED_BY = "feed.liked_by"
++    const val FEED_LIKED_BY_ONE_OTHER = "feed.liked_by_one_other"
++    const val FEED_LIKED_BY_OTHERS = "feed.liked_by_others"
++    const val FEED_LIKE_ONE = "feed.like_one"
++    const val FEED_LIKES = "feed.likes"
++    const val FEED_VIEW_COMMENT = "feed.view_comment"
++    const val FEED_VIEW_COMMENTS = "feed.view_comments"
++    /** The line over the feed right after posting. */
++    const val FEED_POSTED = "feed.posted"
++    const val FEED_NOTIFIED = "feed.notified"
++    const val FEED_MORE = "feed.more"
+     /** Tree tab third segment — personal life ribbon. */
+     const val FAMILY_TAB_LIFE = "family.tab.life"
+ }
+@@ -61,6 +76,18 @@ private fun feedEn() = mapOf(
+     FeedKeys.FEED_SHARE to "Share",
+     FeedKeys.FEED_OPEN_RECIPE to "Open this recipe",
+     FeedKeys.FAMILY_TAB_LIFE to "Life",
++    FeedKeys.FEED_WITH to "with {names}",
++    FeedKeys.FEED_AND to "{a} and {b}",
++    FeedKeys.FEED_LIKED_BY to "Liked by {name}",
++    FeedKeys.FEED_LIKED_BY_ONE_OTHER to "Liked by {name} and 1 other",
++    FeedKeys.FEED_LIKED_BY_OTHERS to "Liked by {name} and {n} others",
++    FeedKeys.FEED_LIKE_ONE to "1 like",
++    FeedKeys.FEED_LIKES to "{n} likes",
++    FeedKeys.FEED_VIEW_COMMENT to "View 1 comment",
++    FeedKeys.FEED_VIEW_COMMENTS to "View {n} comments",
++    FeedKeys.FEED_POSTED to "Posted",
++    FeedKeys.FEED_NOTIFIED to "{names} were notified",
++    FeedKeys.FEED_MORE to "More",
+ )
+ 
+ private fun feedEs() = mapOf(
+@@ -84,6 +111,18 @@ private fun feedEs() = mapOf(
+     FeedKeys.FEED_SHARE to "Compartir",
+     FeedKeys.FEED_OPEN_RECIPE to "Abrir esta receta",
+     FeedKeys.FAMILY_TAB_LIFE to "Vida",
++    FeedKeys.FEED_WITH to "con {names}",
++    FeedKeys.FEED_AND to "{a} y {b}",
++    FeedKeys.FEED_LIKED_BY to "Le gusta a {name}",
++    FeedKeys.FEED_LIKED_BY_ONE_OTHER to "Le gusta a {name} y 1 persona más",
++    FeedKeys.FEED_LIKED_BY_OTHERS to "Le gusta a {name} y {n} personas más",
++    FeedKeys.FEED_LIKE_ONE to "1 me gusta",
++    FeedKeys.FEED_LIKES to "{n} me gusta",
++    FeedKeys.FEED_VIEW_COMMENT to "Ver 1 comentario",
++    FeedKeys.FEED_VIEW_COMMENTS to "Ver los {n} comentarios",
++    FeedKeys.FEED_POSTED to "Publicado",
++    FeedKeys.FEED_NOTIFIED to "Se avisó a {names}",
++    FeedKeys.FEED_MORE to "Más",
+ )
+ 
+ private fun feedDe() = mapOf(
+@@ -107,6 +146,18 @@ private fun feedDe() = mapOf(
+     FeedKeys.FEED_SHARE to "Teilen",
+     FeedKeys.FEED_OPEN_RECIPE to "Dieses Rezept öffnen",
+     FeedKeys.FAMILY_TAB_LIFE to "Leben",
++    FeedKeys.FEED_WITH to "mit {names}",
++    FeedKeys.FEED_AND to "{a} und {b}",
++    FeedKeys.FEED_LIKED_BY to "Gefällt {name}",
++    FeedKeys.FEED_LIKED_BY_ONE_OTHER to "Gefällt {name} und 1 weiteren Person",
++    FeedKeys.FEED_LIKED_BY_OTHERS to "Gefällt {name} und {n} weiteren",
++    FeedKeys.FEED_LIKE_ONE to "1 Like",
++    FeedKeys.FEED_LIKES to "{n} Likes",
++    FeedKeys.FEED_VIEW_COMMENT to "1 Kommentar ansehen",
++    FeedKeys.FEED_VIEW_COMMENTS to "Alle {n} Kommentare ansehen",
++    FeedKeys.FEED_POSTED to "Gepostet",
++    FeedKeys.FEED_NOTIFIED to "{names} wurden benachrichtigt",
++    FeedKeys.FEED_MORE to "Mehr",
+ )
+ 
+ private fun feedZh() = mapOf(
+@@ -130,6 +181,18 @@ private fun feedZh() = mapOf(
+     FeedKeys.FEED_SHARE to "分享",
+     FeedKeys.FEED_OPEN_RECIPE to "打开这道菜谱",
+     FeedKeys.FAMILY_TAB_LIFE to "人生",
++    FeedKeys.FEED_WITH to "和{names}一起",
++    FeedKeys.FEED_AND to "{a}和{b}",
++    FeedKeys.FEED_LIKED_BY to "{name} 赞了",
++    FeedKeys.FEED_LIKED_BY_ONE_OTHER to "{name} 和另外 1 人赞了",
++    FeedKeys.FEED_LIKED_BY_OTHERS to "{name} 和另外 {n} 人赞了",
++    FeedKeys.FEED_LIKE_ONE to "1 个赞",
++    FeedKeys.FEED_LIKES to "{n} 个赞",
++    FeedKeys.FEED_VIEW_COMMENT to "查看 1 条评论",
++    FeedKeys.FEED_VIEW_COMMENTS to "查看全部 {n} 条评论",
++    FeedKeys.FEED_POSTED to "已发布",
++    FeedKeys.FEED_NOTIFIED to "已通知{names}",
++    FeedKeys.FEED_MORE to "更多",
+ )
+ 
+ private fun feedHi() = mapOf(
+@@ -153,6 +216,18 @@ private fun feedHi() = mapOf(
+     FeedKeys.FEED_SHARE to "साझा करें",
+     FeedKeys.FEED_OPEN_RECIPE to "यह रेसिपी खोलें",
+     FeedKeys.FAMILY_TAB_LIFE to "जीवन",
++    FeedKeys.FEED_WITH to "{names} के साथ",
++    FeedKeys.FEED_AND to "{a} और {b}",
++    FeedKeys.FEED_LIKED_BY to "{name} को पसंद आया",
++    FeedKeys.FEED_LIKED_BY_ONE_OTHER to "{name} और 1 अन्य को पसंद आया",
++    FeedKeys.FEED_LIKED_BY_OTHERS to "{name} और {n} अन्य को पसंद आया",
++    FeedKeys.FEED_LIKE_ONE to "1 पसंद",
++    FeedKeys.FEED_LIKES to "{n} पसंद",
++    FeedKeys.FEED_VIEW_COMMENT to "1 टिप्पणी देखें",
++    FeedKeys.FEED_VIEW_COMMENTS to "सभी {n} टिप्पणियाँ देखें",
++    FeedKeys.FEED_POSTED to "पोस्ट हो गया",
++    FeedKeys.FEED_NOTIFIED to "{names} को सूचना भेजी गई",
++    FeedKeys.FEED_MORE to "और",
+ )
+ 
+ private fun feedPt() = mapOf(
+@@ -176,6 +251,18 @@ private fun feedPt() = mapOf(
+     FeedKeys.FEED_SHARE to "Partilhar",
+     FeedKeys.FEED_OPEN_RECIPE to "Abrir esta receita",
+     FeedKeys.FAMILY_TAB_LIFE to "Vida",
++    FeedKeys.FEED_WITH to "com {names}",
++    FeedKeys.FEED_AND to "{a} e {b}",
++    FeedKeys.FEED_LIKED_BY to "Gostado por {name}",
++    FeedKeys.FEED_LIKED_BY_ONE_OTHER to "Gostado por {name} e mais 1 pessoa",
++    FeedKeys.FEED_LIKED_BY_OTHERS to "Gostado por {name} e mais {n} pessoas",
++    FeedKeys.FEED_LIKE_ONE to "1 gosto",
++    FeedKeys.FEED_LIKES to "{n} gostos",
++    FeedKeys.FEED_VIEW_COMMENT to "Ver 1 comentário",
++    FeedKeys.FEED_VIEW_COMMENTS to "Ver os {n} comentários",
++    FeedKeys.FEED_POSTED to "Publicado",
++    FeedKeys.FEED_NOTIFIED to "{names} foram avisados",
++    FeedKeys.FEED_MORE to "Mais",
+ )
+ 
+ private fun feedNl() = mapOf(
+@@ -199,6 +286,18 @@ private fun feedNl() = mapOf(
+     FeedKeys.FEED_SHARE to "Delen",
+     FeedKeys.FEED_OPEN_RECIPE to "Open dit recept",
+     FeedKeys.FAMILY_TAB_LIFE to "Leven",
++    FeedKeys.FEED_WITH to "met {names}",
++    FeedKeys.FEED_AND to "{a} en {b}",
++    FeedKeys.FEED_LIKED_BY to "Leuk gevonden door {name}",
++    FeedKeys.FEED_LIKED_BY_ONE_OTHER to "Leuk gevonden door {name} en 1 ander",
++    FeedKeys.FEED_LIKED_BY_OTHERS to "Leuk gevonden door {name} en {n} anderen",
++    FeedKeys.FEED_LIKE_ONE to "1 like",
++    FeedKeys.FEED_LIKES to "{n} likes",
++    FeedKeys.FEED_VIEW_COMMENT to "1 reactie bekijken",
++    FeedKeys.FEED_VIEW_COMMENTS to "Alle {n} reacties bekijken",
++    FeedKeys.FEED_POSTED to "Geplaatst",
++    FeedKeys.FEED_NOTIFIED to "{names} kregen een melding",
++    FeedKeys.FEED_MORE to "Meer",
+ )
+ 
+ private fun feedFr() = mapOf(
+@@ -222,6 +321,18 @@ private fun feedFr() = mapOf(
+     FeedKeys.FEED_SHARE to "Partager",
+     FeedKeys.FEED_OPEN_RECIPE to "Ouvrir cette recette",
+     FeedKeys.FAMILY_TAB_LIFE to "Vie",
++    FeedKeys.FEED_WITH to "avec {names}",
++    FeedKeys.FEED_AND to "{a} et {b}",
++    FeedKeys.FEED_LIKED_BY to "Aimé par {name}",
++    FeedKeys.FEED_LIKED_BY_ONE_OTHER to "Aimé par {name} et 1 autre personne",
++    FeedKeys.FEED_LIKED_BY_OTHERS to "Aimé par {name} et {n} autres personnes",
++    FeedKeys.FEED_LIKE_ONE to "1 j’aime",
++    FeedKeys.FEED_LIKES to "{n} j’aime",
++    FeedKeys.FEED_VIEW_COMMENT to "Voir 1 commentaire",
++    FeedKeys.FEED_VIEW_COMMENTS to "Voir les {n} commentaires",
++    FeedKeys.FEED_POSTED to "Publié",
++    FeedKeys.FEED_NOTIFIED to "{names} ont été prévenus",
++    FeedKeys.FEED_MORE to "Plus",
+ )
+ 
+ private fun feedKo() = mapOf(
+@@ -245,6 +356,18 @@ private fun feedKo() = mapOf(
+     FeedKeys.FEED_SHARE to "공유",
+     FeedKeys.FEED_OPEN_RECIPE to "이 레시피 열기",
+     FeedKeys.FAMILY_TAB_LIFE to "삶",
++    FeedKeys.FEED_WITH to "{names}님과 함께",
++    FeedKeys.FEED_AND to "{a}, {b}",
++    FeedKeys.FEED_LIKED_BY to "{name}님이 좋아합니다",
++    FeedKeys.FEED_LIKED_BY_ONE_OTHER to "{name}님 외 1명이 좋아합니다",
++    FeedKeys.FEED_LIKED_BY_OTHERS to "{name}님 외 {n}명이 좋아합니다",
++    FeedKeys.FEED_LIKE_ONE to "좋아요 1개",
++    FeedKeys.FEED_LIKES to "좋아요 {n}개",
++    FeedKeys.FEED_VIEW_COMMENT to "댓글 1개 보기",
++    FeedKeys.FEED_VIEW_COMMENTS to "댓글 {n}개 모두 보기",
++    FeedKeys.FEED_POSTED to "게시됨",
++    FeedKeys.FEED_NOTIFIED to "{names}님에게 알림을 보냈어요",
++    FeedKeys.FEED_MORE to "더 보기",
+ )
+ 
+ private fun feedJa() = mapOf(
+@@ -268,4 +391,16 @@ private fun feedJa() = mapOf(
+     FeedKeys.FEED_SHARE to "シェア",
+     FeedKeys.FEED_OPEN_RECIPE to "このレシピを開く",
+     FeedKeys.FAMILY_TAB_LIFE to "人生",
++    FeedKeys.FEED_WITH to "{names}と一緒",
++    FeedKeys.FEED_AND to "{a}と{b}",
++    FeedKeys.FEED_LIKED_BY to "{name}さんがいいねしました",
++    FeedKeys.FEED_LIKED_BY_ONE_OTHER to "{name}さんほか1人がいいねしました",
++    FeedKeys.FEED_LIKED_BY_OTHERS to "{name}さんほか{n}人がいいねしました",
++    FeedKeys.FEED_LIKE_ONE to "いいね！1件",
++    FeedKeys.FEED_LIKES to "いいね！{n}件",
++    FeedKeys.FEED_VIEW_COMMENT to "コメント1件を見る",
++    FeedKeys.FEED_VIEW_COMMENTS to "コメント{n}件をすべて見る",
++    FeedKeys.FEED_POSTED to "投稿しました",
++    FeedKeys.FEED_NOTIFIED to "{names}に通知しました",
++    FeedKeys.FEED_MORE to "その他",
+ )
+diff --git a/sharedLogic/src/commonTest/kotlin/com/nodeda/cookbook/shared/feed/FeedBuilderTest.kt b/sharedLogic/src/commonTest/kotlin/com/nodeda/cookbook/shared/feed/FeedBuilderTest.kt
+index 58350a7..d332e18 100644
+--- a/sharedLogic/src/commonTest/kotlin/com/nodeda/cookbook/shared/feed/FeedBuilderTest.kt
++++ b/sharedLogic/src/commonTest/kotlin/com/nodeda/cookbook/shared/feed/FeedBuilderTest.kt
+@@ -103,6 +103,43 @@ class FeedBuilderTest {
+         assertEquals(FeedTarget.Entry, posts[0].target)
+     }
+ 
++    @Test
++    fun taggedNamesNameEveryoneButTheAuthor() {
++        fun person(id: String, name: String, uid: String? = null) = Person(
++            id = id, displayName = name, relationship = "", birthYear = null,
++            type = "relative", notes = emptyList(), claimedByUid = uid,
++        )
++        val people = listOf(person("p-vani", "Vani"), person("p-ani", "Anindith"), person("p-aunt", "Auntie", "u-aunt"))
++        val posts = buildFeedPosts(
++            myUid = "me", myName = "Me", myPhoto = null, people = people,
++            myEntries = listOf(
++                JournalEntry(
++                    "e1", "lake walk", emptyList(), "text", "2026-07-01T00:00:00Z",
++                    linkedPersonIds = listOf("p-vani", "p-ani", "p-unknown"),
++                ),
++            ),
++            sharedEntries = listOf(
++                JournalEntry(
++                    "e2", "dinner", emptyList(), "text", "2026-07-02T00:00:00Z",
++                    linkedPersonIds = listOf("p-aunt", "p-vani"), authorUid = "u-aunt",
++                ),
++            ),
++            recipes = emptyList(), stories = emptyList(),
++            kindJournal = "Memory", kindRecipe = "Recipe", kindStory = "Story",
++        )
++        assertEquals(listOf("Vani", "Anindith"), posts.first { it.id == "entry:e1" }.taggedNames)
++        // The aunt wrote it, so she is not "with" herself.
++        assertEquals(listOf("Vani"), posts.first { it.id == "shared:e2" }.taggedNames)
++    }
++
++    @Test
++    fun joinNamesUsesTheLocalizedAnd() {
++        assertEquals("", joinNames(emptyList(), "{a} and {b}"))
++        assertEquals("Vani", joinNames(listOf("Vani"), "{a} and {b}"))
++        assertEquals("Vani and Anindith", joinNames(listOf("Vani", "Anindith"), "{a} and {b}"))
++        assertEquals("Vani, Anindith y Komala", joinNames(listOf("Vani", "Anindith", "Komala"), "{a} y {b}"))
++    }
++
+     @Test
+     fun blankJournalWithoutMediaIsDropped() {
+         val posts = buildFeedPosts(
