@@ -1,0 +1,12 @@
+schema_version: 1
+review_id: PP-000001
+decisions:
+- id: D-001
+  outcome: changes_requested
+  by: local
+  at: '2026-11-02T03:40:37.915952Z'
+  note: null
+  proposal_id: null
+  branch: null
+  commit: null
+  verified_at: null
